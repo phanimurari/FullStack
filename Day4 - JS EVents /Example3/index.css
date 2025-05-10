@@ -1,0 +1,17 @@
+div {
+  padding: 20px;
+  border: 1px solid black;
+  margin: 10px;
+}
+
+#outer {
+  background-color: #ff9999; /* light red */
+}
+
+#middle {
+  background-color: #99ccff; /* light blue */
+}
+
+#inner {
+  background-color: #99ff99; /* light green */
+}

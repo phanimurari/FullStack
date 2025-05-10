@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Web Page</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body onload="showWelcomeMessage()">
+  <div class="container">
+  <h1>Hi Welcome</h1>
+  <button id="button">Click Me</button>
+  <img onmouseleave="zoomOut()"  id="cat-image" class="cat" src="https://d1tgh8fmlzexmh.cloudfront.net/ccbp-dynamic-webapps/cat-img.png" alt="cat" />
+  <label for="fname">First name:</label>
+  <input onfocus="onFocusInput()" onchange="trackInput(event)" onkeyup="onkeydownFunction(event)" type="text" id="fname" name="fname">
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
+
+
+
+
+
