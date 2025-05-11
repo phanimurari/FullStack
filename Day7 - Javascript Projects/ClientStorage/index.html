@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Storage Demo</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <h1>localStorage vs sessionStorage</h1>
+
+  <div class="section">
+    <h2>localStorage - Persistent Name</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button onclick="saveName()">Save Name</button>
+    <p id="savedName"></p>
+  </div>
+
+  <div class="section">
+    <h2>sessionStorage - Temporary Note</h2>
+    <textarea id="noteInput" placeholder="Write a note..."></textarea>
+    <button onclick="saveNote()">Save Note</button>
+    <p id="savedNote"></p>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>

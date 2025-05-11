@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f0f2f5;
+}
+
+.section {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+p {
+  font-weight: bold;
+  color: green;
+}
