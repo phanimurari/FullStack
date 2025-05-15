@@ -1,3 +1,6 @@
+console.log(this, "the this")
+
+
 // Get DOM elements once to avoid repeated DOM calls
 const todoItemsContainer = document.getElementById("todoItemsContainer");
 const addTodoButton = document.getElementById("addTodoButton");
