@@ -47,12 +47,13 @@
 // // The Spread Operator syntax can be used to pass an array of arguments to the function.
 // // Extra values will be ignored if we pass more arguments than the function parameters.
 
-// function add(a, b, c) {
-//   return a + b + c;
-// }
-// let numbers = [1, 2, 3, 4, 5];
+function add(a, b, c, d, e) {
+  return a + b + c;
+}
+
+let numbers = [1, 2, 3, 4, 5];
         
-// console.log(add(...numbers));  // 6
+console.log(add(1, 2, 3, 4, 5));  // 6
 
 
 // // The Default Parameters allow us to give default values to function parameters.

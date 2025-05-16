@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShoeLand - Step Into Style</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    /* Custom style for smooth dropdown */
+    .mobile-menu {
+      transition: max-height 0.3s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- 🌐 Navbar -->
+  <header class="bg-blue-200 shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div class="text-2xl font-bold text-blue-600">ShoeLand</div>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#home" class="hover:text-blue-500">Home</a>
+        <a href="#products" class="hover:text-blue-500">Products</a>
+        <a href="#contact" class="hover:text-blue-500">Contact</a>
+      </nav>
+      <div class="md:hidden">
+        <button id="menu-toggle" class="focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden mobile-menu max-h-0 overflow-hidden bg-white px-4">
+      <a href="#home" class="block py-2 hover:text-blue-500">Home</a>
+      <a href="#products" class="block py-2 hover:text-blue-500">Products</a>
+      <a href="#contact" class="block py-2 hover:text-blue-500">Contact</a>
+    </div>
+  </header>
+
+  <div class="flex justify-center">
+  <button class="bg-blue-500 p-4 font-bold text-white rounded-md mr-4 ">Button A</button>
+<button class="bg-cyan-500 p-4 font-bold text-white rounded-md mr-4">Button B</button>
+<button class="bg-pink-500 p-4 font-bold text-white rounded-md mr-4">Button C</button>
+</div>
+  <!-- 💥 Hero Section -->
+  <section id="home" class="text-center py-16 px-4 bg-gray-100">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Step into Style 👟</h1>
+    <p class="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">Discover premium shoes designed for comfort, performance, and fashion. Perfect fit, every time.</p>
+    <a href="#products"
+      class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">Shop
+      Now</a>
+  </section>
+
+  <!-- 🛒 Product Grid -->
+  <section id="products" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-10">Featured Products</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Product Card -->
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <!-- Repeat for more -->
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 2" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Runner Pro</h3>
+          <p class="text-gray-600">$95</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 3" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Street Vibe</h3>
+          <p class="text-gray-600">$110</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 4" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">City Walk</h3>
+          <p class="text-gray-600">$80</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📞 Contact -->
+  <section id="contact" class="bg-gray-100 py-16">
+    <div class="max-w-xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold mb-4">Get in Touch</h2>
+      <p class="text-gray-600 mb-6">Have questions or need help? Contact our support team anytime!</p>
+      <a href="mailto:support@shoeland.com"
+        class="inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Email Us</a>
+    </div>
+  </section>
+
+  <!-- ⚙️ JS for Mobile Toggle -->
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("max-h-0");
+      mobileMenu.classList.toggle("max-h-60");
+    });
+  </script>
+
+</body>
+</html>
