@@ -1,15 +1,15 @@
 // // Call
-// // function greet() {
-// //   console.log("Hello " + this.name);
-// // }
+// function greet(arg1, arg2) {
+//   console.log("Hello " + this.name + " " +arg1 +  " " + arg2);
+// }
 
-// // const user = { name: "Charlie" };
+// const user = { name: "Charlie" };
 
-// // greet.call(user); // Output: Hello Charlie
+// greet.call(user, "Good", "Evening"); // Output: Hello Charlie
 
 
-// // //Apply
-// // Example : 1
+// //Apply
+// Example : 1
 // function introduce(city, age) {
 //   console.log(`${this.name} is from ${city} and is ${age} years old.`);
 // }
@@ -17,7 +17,7 @@
 // const user = { name: "Diana" };
 
 // introduce.apply(user, ["Delhi", 30]);
-// // Output: Diana is from Delhi and is 30 years old.
+// Output: Diana is from Delhi and is 30 years old.
 
 // //Example: 2
 
@@ -37,11 +37,24 @@
 
 // // Bind
 
-const user = { name: "Eve" };
+
+// Call
+function greet(arg1, arg2) {
+  console.log("Hello " + this.name + " " +arg1 +  " " + arg2);
+}
+
+const user = { name: "Charlie" };
+
+greet.call(user, "Good", "Evening"); // Output: Hello Charlie
+
+
+const user1 = { name: "Eve" };
 
 function sayHi() {
+  console.log("SayHi")
   return "Hi " + this.name;
 }
 
-const boundSayHi = sayHi.bind(user);
-console.log(boundSayHi()); // Output: Hi Eve
+sayHi.bind(user1);
+
+

@@ -1,19 +1,19 @@
-function outerFunction() {
-  let counter = 0;
+// function outerFunction() {
+//   let counter = 0;
 
-  function innerFunction() {
-    counter++;
-    console.log(counter);
-  }
+//   function innerFunction() {
+//     counter++;
+//     console.log(counter);
+//   }
 
-  return innerFunction;
-}
+//   return innerFunction;
+// }
 
-const myClosure = outerFunction(); // outerFunction runs, returns innerFunction
+// const myClosure = outerFunction(); // outerFunction runs, returns innerFunction
 
-myClosure(); // 1
-myClosure(); // 2
-myClosure(); // 3
+// myClosure(); // 1
+// myClosure(); // 2
+// myClosure(); // 3
 
 
 // const hourEl = document.getElementById("hour");
@@ -46,3 +46,13 @@ myClosure(); // 3
 // }
 
 // updateClock();
+
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+
+let person1 = new Person("Virat", "Kohli");
+let person2 = new Person("Sachin", "Tendulkar");
+
+console.log(Object.getPrototypeOf(person1) === Object.getPrototypeOf(person2));

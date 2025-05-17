@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ✅ Custom Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            heading: '#0be3e0',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- ✅ External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-100 to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-black">
+
+  <!-- 🔘 Theme Toggle Button -->
+  <button id="toggle-theme" class="absolute top-4 right-4 px-4 py-2 bg-black text-white dark:bg-white dark:text-black rounded-full shadow-md">
+    Toggle Theme
+  </button>
+
+  <!-- 🎉 Centered Heading -->
+  <h1 class="text-heading text-5xl font-extrabold bg-white/10 dark:bg-white/20 px-16 py-12 rounded-2xl shadow-2xl backdrop-blur-md dark:text-heading">
+    Hello World!
+  </h1>
+
+  <!-- ✅ External JS -->
+  <script src="script.js"></script>
+</body>
+</html>
