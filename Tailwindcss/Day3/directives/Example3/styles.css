@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Custom utility class */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    color: greenyellow
+  }
+}

@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* Accent Colors */
+.text-accent {
+  color: #0ea5e9;
+}
+
+.bg-accent {
+  background-color: #0ea5e9;
+}
+
+.bg-accent-dark {
+  background-color: #0284c7;
+}
+
+.hover\:bg-accent-dark:hover {
+  background-color: #0284c7;
+}
+
+.focus\:ring-accent:focus {
+  --tw-ring-color: #0ea5e9;
+}
+
+.focus\:border-accent:focus {
+  border-color: #0ea5e9;
+}
+
+.accent-accent {
+  accent-color: #0ea5e9;
+}
+
+/* Custom Animation */
+@keyframes highlight {
+  0%, 100% {
+    color: #0ea5e9;
+    text-shadow: 0 0 0 transparent;
+  }
+  50% {
+    color: #0284c7;
+    text-shadow: 0 0 8px #7dd3fc;
+  }
+}
+
+.animate-highlight {
+  animation: highlight 2s ease-in-out infinite;
+}
+
+/* Loader Spinner */
+.loader {
+  border-radius: 9999px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: #0ea5e9;
+  border-top-color: transparent;
+}

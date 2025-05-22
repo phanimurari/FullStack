@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tailwind Accent Input Demo</title>
+  <link href="./dist/index.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans">
+
+  <header class="bg-white shadow p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-[clamp(1.5rem,5vw,2.5rem)] font-bold text-accent animate-highlight">
+        Tailwind Accent Demo
+      </h1>
+      <nav class="space-x-4 text-sm sm:text-base">
+        <a href="#" class="text-gray-700 hover:text-accent">Home</a>
+        <a href="#" class="text-gray-700 hover:text-accent">Docs</a>
+        <a href="#" class="text-gray-700 hover:text-accent">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
+    <form>
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-700">
+        Email Address
+      </label>
+      <input 
+        type="email" 
+        id="email" 
+        placeholder="you@example.com"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md placeholder:text-gray-400 
+               focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent animate-pulse"
+      />
+
+      <div class="mt-4 flex items-center">
+        <input 
+          type="checkbox" 
+          id="subscribe" 
+          class="accent-accent h-5 w-5 rounded border-gray-300 focus:ring-accent"
+        />
+        <label for="subscribe" class="ml-2 text-sm text-gray-700">
+          I agree to receive newsletters
+        </label>
+      </div>
+
+      <button type="submit" 
+        class="mt-6 w-full bg-accent text-white font-semibold py-2 px-4 rounded hover:bg-accent-dark">
+        Subscribe
+      </button>
+
+      <p class="text-[min(10vw,70px)]  text-sm text-">Something Fluid Text</p>
+
+      <!-- LOADER SPINNER -->
+      <div class="flex justify-center mt-6">
+        <div class="loader animate-spin h-8 w-8 rounded-full border-4 border-accent border-t-transparent"></div>
+      </div>
+    </form>
+  </main>
+
+  <footer class="text-center text-sm text-gray-500 py-6">
+    © 2025 Tailwind Demo – All rights reserved.
+  </footer>
+
+</body>
+</html>
