@@ -104,15 +104,13 @@
 //     console.log("Bye!");
 // };
 
+// const nums = [1, 2, 3, 4]; 
+// const total = nums.reduce((sum, num) => sum + num, 0);
 
+// // 4️⃣ reduce – Combine Into One
 
-const nums = [1, 2, 3, 4]; 
-const total = nums.reduce((sum, num) => sum + num, 0);
-
-// 4️⃣ reduce – Combine Into One
-
-array.reduce((accumulator, currentValue) => {
-    // logic
-    return updatedAccumulator;
-}, initialValue);
+// array.reduce((accumulator, currentValue) => {
+//     // logic
+//     return updatedAccumulator;
+// }, initialValue);
   

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ShoeLand - Step Into Style</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
   <style>
     /* Custom style for smooth dropdown */
     .mobile-menu {
@@ -40,19 +42,71 @@
     </div>
   </header>
 
-  <div class="flex justify-center">
-  <button class="bg-blue-500 p-4 font-bold text-white rounded-md mr-4 ">Button A</button>
-<button class="bg-cyan-500 p-4 font-bold text-white rounded-md mr-4">Button B</button>
-<button class="bg-pink-500 p-4 font-bold text-white rounded-md mr-4">Button C</button>
-</div>
   <!-- 💥 Hero Section -->
-  <section id="home" class="text-center py-16 px-4 bg-gray-100">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Step into Style 👟</h1>
-    <p class="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">Discover premium shoes designed for comfort, performance, and fashion. Perfect fit, every time.</p>
+  <!-- 💥 Updated Hero Section with Background Image -->
+<section id="home" class="relative bg-gray-900 text-white py-24 px-4">
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    <img
+      src="https://res.cloudinary.com/imphanimurari/image/upload/v1748178056/SHoes/nike4_rxbq4d.jpg"
+      alt="Hero Background"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div> <!-- Overlay -->
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-4xl mx-auto text-center">
+    <h1 class="text-4xl sm:text-5xl font-bold mb-6">Step into Style 👟</h1>
+    <p class="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+      Discover premium shoes designed for comfort, performance, and fashion. Perfect fit, every time.
+    </p>
     <a href="#products"
-      class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">Shop
-      Now</a>
-  </section>
+       class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
+      Shop Now
+    </a>
+  </div>
+</section>
+
+<!-- 🖼️ Carousel Section -->
+<section class="bg-white py-12">
+  <div class="max-w-6xl mx-auto px-4" x-data="{ activeSlide: 0, slides: [0, 1, 2] }">
+    <h2 class="text-3xl font-bold text-center mb-8">Our Highlights</h2>
+
+    <div class="relative overflow-hidden rounded-lg">
+      <!-- Slides -->
+      <div class="flex transition-transform duration-500"
+           :style="`transform: translateX(-${activeSlide * 100}%)`">
+        <template x-for="slide in slides" :key="slide">
+          <div class="w-full flex-shrink-0">
+            <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177615/SHoes/nike3_kyrmzi.jpg" 
+                 alt="Carousel image" class="w-full h-96 object-cover rounded" />
+          </div>
+        </template>
+      </div>
+
+      <!-- Prev/Next Buttons -->
+      <button @click="activeSlide = (activeSlide === 0) ? slides.length - 1 : activeSlide - 1"
+              class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow">
+        ◀
+      </button>
+      <button @click="activeSlide = (activeSlide + 1) % slides.length"
+              class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow">
+        ▶
+      </button>
+    </div>
+
+    <!-- Dots -->
+    <div class="flex justify-center mt-4 space-x-2">
+      <template x-for="(slide, index) in slides" :key="index">
+        <div @click="activeSlide = index"
+             class="w-3 h-3 rounded-full cursor-pointer"
+             :class="activeSlide === index ? 'bg-blue-600' : 'bg-gray-400'"></div>
+      </template>
+    </div>
+  </div>
+</section>
+
 
   <!-- 🛒 Product Grid -->
   <section id="products" class="py-16 bg-white">
@@ -67,30 +121,135 @@
           <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
         </div>
 
-        <!-- Repeat for more -->
         <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
-          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 2" class="w-full h-48 object-cover rounded" />
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177617/SHoes/nike2_sduqed.jpg" alt="Shoe 2" class="w-full h-48 object-cover rounded" />
           <h3 class="mt-4 text-xl font-semibold">Runner Pro</h3>
           <p class="text-gray-600">$95</p>
           <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
         </div>
 
         <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
-          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 3" class="w-full h-48 object-cover rounded" />
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177612/SHoes/nike1_hodvd6.jpg" alt="Shoe 3" class="w-full h-48 object-cover rounded" />
           <h3 class="mt-4 text-xl font-semibold">Street Vibe</h3>
           <p class="text-gray-600">$110</p>
           <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
         </div>
 
         <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
-          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 4" class="w-full h-48 object-cover rounded" />
-          <h3 class="mt-4 text-xl font-semibold">City Walk</h3>
-          <p class="text-gray-600">$80</p>
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
           <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
         </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177617/SHoes/nike2_sduqed.jpg" alt="Shoe 2" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Runner Pro</h3>
+          <p class="text-gray-600">$95</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177612/SHoes/nike1_hodvd6.jpg" alt="Shoe 3" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Street Vibe</h3>
+          <p class="text-gray-600">$110</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177617/SHoes/nike2_sduqed.jpg" alt="Shoe 2" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Runner Pro</h3>
+          <p class="text-gray-600">$95</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177612/SHoes/nike1_hodvd6.jpg" alt="Shoe 3" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Street Vibe</h3>
+          <p class="text-gray-600">$110</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177617/SHoes/nike2_sduqed.jpg" alt="Shoe 2" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Runner Pro</h3>
+          <p class="text-gray-600">$95</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177612/SHoes/nike1_hodvd6.jpg" alt="Shoe 3" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Street Vibe</h3>
+          <p class="text-gray-600">$110</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+    
+        
+
       </div>
     </div>
   </section>
+
+
+<!-- Product Features / Benefits Section -->
+<section class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-8">Why Choose ShoeLand?</h2>
+    <div class="grid md:grid-cols-3 gap-8 text-left">
+      <div>
+        <h3 class="text-xl font-semibold mb-2">👟 Superior Comfort</h3>
+        <p class="text-gray-600">Our shoes are crafted with precision cushioning and breathable materials.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-2">🎯 Perfect Fit Guarantee</h3>
+        <p class="text-gray-600">We offer hassle-free size exchanges and custom sizing options.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-2">🌱 Sustainable Materials</h3>
+        <p class="text-gray-600">Eco-friendly sourcing and vegan leather options available.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Testimonials / Reviews -->
+<section class="py-16 bg-gray-100">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-10">What Our Customers Say</h2>
+    <div class="grid md:grid-cols-3 gap-8 text-left">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <p class="text-gray-600 italic">"Absolutely the most comfortable pair I've ever owned!"</p>
+        <h4 class="mt-4 font-semibold">– Alex J.</h4>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <p class="text-gray-600 italic">"Superb quality, fast shipping, and they look great."</p>
+        <h4 class="mt-4 font-semibold">– Priya M.</h4>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <p class="text-gray-600 italic">"I'm on my feet all day — these saved me."</p>
+        <h4 class="mt-4 font-semibold">– Chris K.</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <!-- 📞 Contact -->
   <section id="contact" class="bg-gray-100 py-16">
@@ -102,6 +261,39 @@
     </div>
   </section>
 
+
+   <!-- 🗺️ Location / Google Map Section -->
+  <section class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-6">Visit Our Store</h2>
+    <p class="text-gray-600 mb-6">Stop by our flagship location and try our shoes in person.</p>
+    <div class="w-full h-96 rounded-lg shadow-lg overflow-hidden">
+      <iframe
+        class="w-full h-full"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.527783871003!2d-122.40137738468152!3d37.78699897975661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064f77a6b45%3A0xc8574f73a8f924e2!2sShoe%20Store!5e0!3m2!1sen!2sus!4v1627739312782!5m2!1sen!2sus"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+
+  <!-- 🔚 Footer -->
+<footer class="bg-blue-200 text-blue-800 py-6 mt-16">
+  <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
+    <p>&copy; 2025 ShoeLand. All rights reserved.</p>
+    <div class="flex space-x-4">
+      <a href="#" class="hover:text-blue-600">Privacy Policy</a>
+      <a href="#" class="hover:text-blue-600">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
   <!-- ⚙️ JS for Mobile Toggle -->
   <script>
     const menuToggle = document.getElementById("menu-toggle");
@@ -112,6 +304,8 @@
       mobileMenu.classList.toggle("max-h-60");
     });
   </script>
+
+
 
 </body>
 </html>
