@@ -3,54 +3,328 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Web Page</title>
-  <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <link rel="stylesheet" href="index.css" />
+  <title>ShoeLand - Step Into Style</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <style>
+    .mobile-menu {
+      transition: max-height 0.3s ease-out;
+    }
+  </style>
 </head>
-<body>
-   <!--HTML CODE-->
-<div class="w-full relative">
-<div class="swiper default-carousel swiper-container">
-<div class="swiper-wrapper">
- <div class="swiper-slide">
-   <div class="bg-indigo-50 rounded-2xl h-96 flex justify-center items-center">
-     <img src="https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg" />
-   </div>
- </div>
- <div class="swiper-slide">
-   <div class="bg-indigo-50 rounded-2xl h-96 flex justify-center items-center">
-      <img src="https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg" />
-   </div>
- </div>
- <div class="swiper-slide">
-   <div class="bg-indigo-50 rounded-2xl h-96 flex justify-center items-center">
-     <img src="https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg" />
-   </div>
- </div>
-</div>
-<div class="flex items-center gap-8 lg:justify-start justify-center">
- <button id="slider-button-left" class="swiper-button-prev group !p-2 flex justify-center items-center border border-solid border-indigo-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !left-5 hover:bg-indigo-600 " data-carousel-prev>
-   <svg class="h-5 w-5 text-indigo-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-     <path d="M10.0002 11.9999L6 7.99971L10.0025 3.99719" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-   </svg>
- </button>
- <button id="slider-button-right" class="swiper-button-next group !p-2 flex justify-center items-center border border-solid border-indigo-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8  !right-5 hover:bg-indigo-600" data-carousel-next>
-   <svg class="h-5 w-5 text-indigo-600 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-     <path d="M5.99984 4.00012L10 8.00029L5.99748 12.0028" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-   </svg>
- </button>
-</div>
-<div class="swiper-pagination"></div>
-</div>
-</div>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- 🌐 Navbar -->
+  <header class="bg-blue-200 shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div class="text-2xl font-bold text-blue-600">ShoeLand</div>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#home" class="hover:text-blue-500">Home</a>
+        <a href="#products" class="hover:text-blue-500">Products</a>
+        <a href="#contact" class="hover:text-blue-500">Contact</a>
+      </nav>
+      <div class="md:hidden">
+        <button id="menu-toggle" class="focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden mobile-menu max-h-0 overflow-hidden bg-white px-4">
+      <a href="#home" class="block py-2 hover:text-blue-500">Home</a>
+      <a href="#products" class="block py-2 hover:text-blue-500">Products</a>
+      <a href="#contact" class="block py-2 hover:text-blue-500">Contact</a>
+    </div>
+  </header>
+
+  <!-- 💥 Hero Section -->
+  <section id="home" class="relative bg-gray-900 text-white py-24 px-4">
+    <div class="absolute inset-0">
+      <img
+        src="https://res.cloudinary.com/imphanimurari/image/upload/v1748178056/SHoes/nike4_rxbq4d.jpg"
+        alt="Hero Background"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold mb-6">Step into Style</h1>
+      <p class="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+        Discover premium shoes designed for comfort, performance, and fashion. Perfect fit, every time.
+      </p>
+      <a href="#products"
+        class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
+        Shop Now
+      </a>
+    </div>
+  </section>
+
+<!-- 🎠 Responsive Height Carousel Section -->
+<section class="bg-white py-12">
+  <div class="max-w-6xl mx-auto px-4" x-data="{ activeSlide: 0, slides: [
+    'https://res.cloudinary.com/imphanimurari/image/upload/v1748177617/SHoes/nike2_sduqed.jpg',
+    'https://res.cloudinary.com/imphanimurari/image/upload/v1748178056/SHoes/nike4_rxbq4d.jpg',
+    'https://res.cloudinary.com/imphanimurari/image/upload/v1748177615/SHoes/nike3_kyrmzi.jpg',
+    'https://res.cloudinary.com/imphanimurari/image/upload/v1748177612/SHoes/nike1_hodvd6.jpg'
+  ]}">
+    <h2 class="text-3xl font-bold text-center mb-8">Our Collections</h2>
+
+    <div class="relative overflow-hidden rounded-lg">
+      <div class="flex transition-transform duration-500"
+           :style="`transform: translateX(-${activeSlide * 100}%)`">
+        <template x-for="(slide, index) in slides" :key="index">
+          <div class="w-full flex-shrink-0">
+            <img :src="slide"
+                 alt="Carousel image"
+                 class="w-full h-64 sm:h-80 lg:h-[500px] object-cover rounded" />
+          </div>
+        </template>
+      </div>
+
+      <!-- Prev/Next Buttons -->
+      <button @click="activeSlide = (activeSlide === 0) ? slides.length - 1 : activeSlide - 1"
+              class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow">
+        ◀
+      </button>
+      <button @click="activeSlide = (activeSlide + 1) % slides.length"
+              class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow">
+        ▶
+      </button>
+    </div>
+
+    <!-- Dots -->
+    <div class="flex justify-center mt-4 space-x-2">
+      <template x-for="(slide, index) in slides" :key="index">
+        <div @click="activeSlide = index"
+             class="w-3 h-3 rounded-full cursor-pointer"
+             :class="activeSlide === index ? 'bg-blue-600' : 'bg-gray-400'"></div>
+      </template>
+    </div>
+  </div>
+</section>
 
 
-  <script src="index.js"></script>
+
+  <!-- 💎 Features Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-8">Why Choose ShoeLand?</h2>
+      <div class="grid md:grid-cols-3 gap-8 text-left">
+        <div>
+          <h3 class="text-xl font-semibold mb-2">👟 Superior Comfort</h3>
+          <p class="text-gray-600">Our shoes are crafted with precision cushioning and breathable materials.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">🎯 Perfect Fit Guarantee</h3>
+          <p class="text-gray-600">We offer hassle-free size exchanges and custom sizing options.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">🌱 Sustainable Materials</h3>
+          <p class="text-gray-600">Eco-friendly sourcing and vegan leather options available.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🛒 Product Grid -->
+  <section id="products" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-10">Featured Products</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Repeatable Product Card -->
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748178056/SHoes/nike4_rxbq4d.jpg"
+               alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <!-- <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button> -->
+          <div x-data="{ showModal: false }">
+  <!-- Buy Now Button -->
+  <button @click="showModal = true"
+    class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Buy Now
+  </button>
+
+  <!-- Modal -->
+  <div x-show="showModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
+    <!-- Backdrop -->
+    <div @click="showModal = false" class="fixed inset-0 bg-gray-500/75 transition-opacity"></div>
+
+    <!-- Dialog Panel -->
+    <div @click.away="showModal = false"
+         class="relative z-10 bg-white dark:bg-gray-800 rounded-lg shadow-xl sm:max-w-lg w-full p-6 transition transform">
+      <div class="flex items-start space-x-4">
+        <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748178056/SHoes/nike4_rxbq4d.jpg"
+               alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Confirm Purchase</h3>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Do you want to proceed with this purchase?</p>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="mt-6 flex justify-end space-x-2">
+        <button @click="showModal = false"
+                class="bg-gray-100 hover:bg-gray-200 text-gray-900 px-4 py-2 rounded">
+          Cancel
+        </button>
+        <button @click="showModal = false"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177617/SHoes/nike2_sduqed.jpg"
+               alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+        
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177615/SHoes/nike3_kyrmzi.jpg"
+               alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177612/SHoes/nike1_hodvd6.jpg"
+               alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748178056/SHoes/nike4_rxbq4d.jpg"
+               alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177617/SHoes/nike2_sduqed.jpg"
+               alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+        
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177615/SHoes/nike3_kyrmzi.jpg"
+               alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+
+        <div class="border p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="https://res.cloudinary.com/imphanimurari/image/upload/v1748177612/SHoes/nike1_hodvd6.jpg"
+               alt="Shoe 1" class="w-full h-48 object-cover rounded" />
+          <h3 class="mt-4 text-xl font-semibold">Air Classic</h3>
+          <p class="text-gray-600">$120</p>
+          <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy Now</button>
+        </div>
+        
+        <!-- Add more cards as needed... -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 🎥 Fixed Video Showcase Section -->
+  <!-- 🎥 Taller Video Section -->
+<section class="py-16 bg-gray-100">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-6">Take a Closer Look</h2>
+    <p class="text-gray-600 mb-6">Watch how ShoeLand brings comfort, design, and performance together.</p>
+    <div class="w-full h-[500px]">
+      <iframe class="w-full h-full rounded-lg shadow-lg"
+              src="https://www.youtube.com/embed/SZYZxlHYa4A"
+              title="ShoeLand Video"
+              frameborder="0"
+              allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- 💬 Testimonials -->
+  <section class="py-16 bg-gray-100">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-10">What Our Customers Say</h2>
+      <div class="grid md:grid-cols-3 gap-8 text-left">
+        <div class="bg-white p-6 rounded-lg shadow">
+          <p class="text-gray-600 italic">"Absolutely the most comfortable pair I've ever owned!"</p>
+          <h4 class="mt-4 font-semibold">– Alex J.</h4>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <p class="text-gray-600 italic">"Superb quality, fast shipping, and they look great."</p>
+          <h4 class="mt-4 font-semibold">– Priya M.</h4>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <p class="text-gray-600 italic">"I'm on my feet all day — these saved me."</p>
+          <h4 class="mt-4 font-semibold">– Chris K.</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🗺️ Google Map Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Visit Our Store</h2>
+      <p class="text-gray-600 mb-6">Stop by our flagship location and try our shoes in person.</p>
+      <div class="w-full h-96 rounded-lg shadow-lg overflow-hidden">
+        <iframe class="w-full h-full"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.527783871003!2d-122.40137738468152!3d37.78699897975661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064f77a6b45%3A0xc8574f73a8f924e2!2sShoe%20Store!5e0!3m2!1sen!2sus!4v1627739312782!5m2!1sen!2sus"
+                allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📞 Contact -->
+  <section id="contact" class="bg-gray-100 py-16">
+    <div class="max-w-xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold mb-4">Get in Touch</h2>
+      <p class="text-gray-600 mb-6">Have questions or need help? Contact our support team anytime!</p>
+      <a href="mailto:support@shoeland.com"
+         class="inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Email Us</a>
+    </div>
+  </section>
+
+  <!-- 🔚 Footer -->
+  <footer class="bg-blue-200 text-blue-800 py-6 mt-16">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
+      <p>&copy; 2025 ShoeLand. All rights reserved.</p>
+      <div class="flex space-x-4">
+        <a href="#" class="hover:text-blue-600">Privacy Policy</a>
+        <a href="#" class="hover:text-blue-600">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ⚙️ JS for Mobile Toggle -->
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("max-h-0");
+      mobileMenu.classList.toggle("max-h-60");
+    });
+  </script>
+
 </body>
 </html>
-
-
-
-
-
