@@ -1,0 +1,107 @@
+<!-- ❌ Memory Leak Example  -->
+
+<!DOCTYPE html>
+<html>
+<head><title>Closure Memory Leak</title></head>
+<body>
+  <button id="add">Add Elements</button>
+  <button id="clear">Clear Elements</button>
+  <div id="container"></div>
+
+  <script>
+    const addBtn = document.getElementById('add');
+    const clearBtn = document.getElementById('clear');
+    const container = document.getElementById('container');
+
+    addBtn.addEventListener('click', () => {
+      for (let i = 0; i < 1000; i++) {
+        const div = document.createElement('div');
+        div.textContent = `Leaky Element #${i}`;
+        div.style.padding = '10px';
+        div.style.margin = '5px';
+        div.style.border = '1px solid red';
+
+        // Simulate a large closure-bound object
+        const heavyObject = new Array(5000).fill('🧱');
+
+        // ❌ Store closure on element directly
+        div.onClickHandler = () => {
+          console.log(`Clicked element ${i}`, heavyObject[0]);
+        };
+
+        div.addEventListener('click', div.onClickHandler);
+
+        container.appendChild(div);
+      }
+    });
+
+    clearBtn.addEventListener('click', () => {
+      // ❌ Only removing from DOM, not clearing closures
+      container.innerHTML = '';
+      console.log('❌ Cleared DOM, but memory still retained via element properties!');
+    });
+  </script>
+</body>
+</html>
+
+<!-- 
+✅ Fixed Version  -->
+
+<!-- <!DOCTYPE html>
+<html>
+<head><title>Clean Version</title></head>
+<body>
+  <button id="add">Add Elements</button>
+  <button id="clear">Clear Elements</button>
+  <div id="container"></div>
+
+  <script>
+    const addBtn = document.getElementById('add');
+    const clearBtn = document.getElementById('clear');
+    const container = document.getElementById('container');
+
+    addBtn.addEventListener('click', () => {
+      for (let i = 0; i < 1000; i++) {
+        const div = document.createElement('div');
+        div.textContent = `Element #${i}`;
+        div.style.padding = '10px';
+        div.style.margin = '5px';
+        div.style.border = '1px solid green';
+
+        const heavyObject = new Array(5000).fill('🧱');
+
+        const handler = () => {
+          console.log(`Clicked element ${i}`, heavyObject[0]);
+        };
+
+        div._handler = handler; // temp store handler to remove later
+        div.addEventListener('click', handler);
+
+        container.appendChild(div);
+      }
+    });
+
+    clearBtn.addEventListener('click', () => {
+      // ✅ Clean up handlers before removing
+      const children = container.children;
+      for (let i = 0; i < children.length; i++) {
+        const div = children[i];
+        div.removeEventListener('click', div._handler);
+        div._handler = null; // clear custom property reference
+      }
+
+      container.innerHTML = '';
+      console.log('✅ Cleaned references and DOM!');
+    });
+  </script>
+</body>
+</html> -->
+
+
+<!-- 
+🔍 Why this leaks
+When you store a function on a DOM element like:
+
+div.onClickHandler = () => console.log(heavyObject);
+
+That function closes over heavyObject, which will never be collected as long as the element itself isn’t GC’d. If you remove the DOM node without deleting the reference (onClickHandler), the closure remains alive in memory. -->

@@ -34,8 +34,6 @@ alert("Third Line");
 
 
 
-
-
   // // Event Capturing
   // outer.addEventListener("click", (event) => {
   //   event.stopPropagation()
@@ -49,3 +47,16 @@ alert("Third Line");
   // inner.addEventListener("click", () => {
   //   console.log("Capturing: INNER");
   // }, true);
+
+
+element.addEventListener('click', handler, {
+  passive: false, // allows preventDefault()
+  capture: true  // handles event in capture phase
+});
+
+function handler(event) {
+  event.preventDefault(); // stops default behavior
+  event.stopPropagation(); // stops event bubbling/capturing
+}
+
+// Example: Form Submission
