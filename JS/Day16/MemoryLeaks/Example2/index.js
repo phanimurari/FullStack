@@ -1,44 +1,91 @@
 
+    // Inefficient Code:
+
+    
+    // const addBtn = document.getElementById('add');
+    // const clearBtn = document.getElementById('clear');
+    // const container = document.getElementById('container');
+
+    // // This leaks because it lives forever and holds closures
+    // const leakedReferences = [];
+
+    // function createUserCard(index) {
+    //   const heavyData = new Array(5000).fill('🔥' + index);
+
+    //   const card = document.createElement('div');
+    //   card.className = 'user-card';
+    //   card.textContent = `User #${index}`;
+    //   card.style.padding = '10px';
+    //   card.style.margin = '5px';
+    //   card.style.border = '1px solid #ccc';
+
+    //   const clickHandler = () => {
+    //     console.log(`User #${index} clicked`, heavyData[0]); // memory closure
+    //   };
+
+    //   card.addEventListener('click', clickHandler);
+
+    //   // ❌ Leak: We store everything and never release it
+    //   leakedReferences.push({ card, clickHandler });
+
+    //   return card;
+    // }
+
+    // addBtn.addEventListener('click', () => {
+    //   for (let i = 0; i < 1000; i++) {
+    //     const card = createUserCard(i);
+    //     container.appendChild(card);
+    //   }
+    // });
+
+    // // ❌ Doesn't remove event listeners or clear references
+    // clearBtn.addEventListener('click', () => {
+    //   container.innerHTML = '';
+    //   console.log('❌ Cleared from DOM but not memory!');
+    // });
+
+
+    // Efficient Code
+
     const addBtn = document.getElementById('add');
     const clearBtn = document.getElementById('clear');
     const container = document.getElementById('container');
+    const cards = [];
 
-    // 🔴 Leak: We store references to DOM elements in this array
-    const leakyElements = [];
+    function createUserCard(index) {
+      const heavyData = new Array(5000).fill('🔥' + index);
 
-    function handleClick() {
-      console.log('Element clicked');
+      const card = document.createElement('div');
+      card.className = 'user-card';
+      card.textContent = `User #${index}`;
+      card.style.padding = '10px';
+      card.style.margin = '5px';
+      card.style.border = '1px solid #ccc';
+
+      const clickHandler = () => {
+        console.log(`User #${index} clicked`, heavyData[0]); // closure with large data
+      };
+
+      card.addEventListener('click', clickHandler);
+
+      // store reference for cleanup
+      cards.push({ card, clickHandler });
+
+      return card;
     }
 
     addBtn.addEventListener('click', () => {
-      const div = document.createElement('div');
-      div.textContent = 'Click Me!';
-      div.style.padding = '10px';
-      div.style.margin = '5px';
-      div.style.backgroundColor = '#ddd';
-
-      // Attach event listener
-      div.addEventListener('click', handleClick);
-
-      // Append to DOM
-      container.appendChild(div);
-
-      // ❗ Store a reference in a long-living array
-      leakyElements.push(div);
+      for (let i = 0; i < 1000; i++) {
+        const card = createUserCard(i);
+        container.appendChild(card);
+      }
     });
 
     clearBtn.addEventListener('click', () => {
-      // Remove all children from DOM
+      cards.forEach(({ card, clickHandler }) => {
+        card.removeEventListener('click', clickHandler);
+      });
+      cards.length = 0;
       container.innerHTML = '';
-      // But we don't remove them from leakyElements OR detach their event listeners!
+      console.log('✅ Cleaned up efficiently');
     });
-
-
-  // clearBtn.addEventListener('click', () => {
-  // leakyElements.forEach(el => {
-  //   el.removeEventListener('click', handleClick); // detach listener
-  // });
-
-  // leakyElements.length = 0; // clear array reference
-  // container.innerHTML = ''; // remove from DOM
-  // });
