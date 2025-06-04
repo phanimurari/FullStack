@@ -9,14 +9,14 @@ const leakedArray = [];
 let trackCount = 0
 
 
-button.addEventListener('click', () => {
-  // Every time the button is clicked, we store a HUGE unused object
-  leakedArray.push(new Array(1000000).fill('*'));
-});
+// button.addEventListener('click', () => {
+//   // Every time the button is clicked, we store a HUGE unused object
+//   leakedArray.push(new Array(1000000).fill('*'));
+// });
 
 
 button.addEventListener('click', () => {
-  if (leakedArray.length > 10) leakedArray.shift(); // remove old stuff
+  if (leakedArray.length > 2) leakedArray.shift(); // remove old stuff
   leakedArray.push(new Array(1000000).fill('*'));
 });
 
