@@ -45,7 +45,7 @@ const options = {
 console.log("Start")
 
 
-fetch('https://dummyjson.com/todos', options)
+fetch('http://localhost:8000/api/todos/', options)
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
