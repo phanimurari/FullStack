@@ -113,8 +113,7 @@ router.get('/search', async (req, res) => {
 // });
 
 
-router.get('/secure-data', errorLogger, (req, res) => {
-  throw new Error("my error")
+router.get('/secure-data', logger, (req, res) => {
   res.send('Only this route logs with logger middleware');
 });
 // ⏩ Execution Order:
