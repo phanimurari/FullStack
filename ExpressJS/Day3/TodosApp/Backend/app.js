@@ -6,8 +6,9 @@ const dotenv = require('dotenv');
 const todoRoutes = require('./routes/todoRoutes');
 const cors = require('cors');
 
+
 // const defaultLogger = require('./middleware/logger');           // ✅ Custom logger middleware
-// const errorLogger = require('./middleware/errorLogger'); // ✅ Error handling middleware
+const errorLogger = require('./middleware/errorLogger'); // ✅ Error handling middleware
 
 
 

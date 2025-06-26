@@ -5,6 +5,9 @@ const router = express.Router();
 const Todo = require('../models/Todo');
 
 const logger = require('../middleware/logger'); // 👈 Your custom middleware
+
+const logger2 = require('../middleware/logger2'); // 👈 Your custom middleware
+
 const errorLogger = require("../middleware/errorLogger")
 
 
@@ -115,7 +118,8 @@ router.get('/search', async (req, res) => {
 
 router.get('/secure-data', logger, (req, res, next) => {
   try {
-    throw new Error("new Error");
+    throw new Error("Throw Error");
+  
     res.send('Only this route logs with logger middleware');
   } catch (error) {
     next(error); // This sends the error to error-handling middleware
@@ -123,7 +127,7 @@ router.get('/secure-data', logger, (req, res, next) => {
 });
 
 
-// // ✅ Route-level error handler (only for secure-data errors)
+// // // ✅ Route-level error handler (only for secure-data errors)
 router.use('/secure-data', errorLogger);
 
 

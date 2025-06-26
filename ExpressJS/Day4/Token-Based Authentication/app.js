@@ -8,7 +8,7 @@ app.use(express.json());
 const SECRET_KEY = "secretKey";
 
 // 🧪 Dummy user (simulate login)
-const USERS = [{ id: 1, username: "alice", password: "wonderland" }];
+const USERS = [{ id: 1, username: "alice", password: "wonderland" }, { id: 2, username: "virat", password: "india" }];
 
 // ✅ Public Route — Login
 app.post("/login", (req, res) => {
@@ -19,7 +19,7 @@ app.post("/login", (req, res) => {
   );
 
   if (!user) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    return res.status(401).json({ message: "Invalid credentials, check your username and password" });
   }
 
   // Generate JWT token
