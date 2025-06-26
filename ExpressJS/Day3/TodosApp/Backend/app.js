@@ -31,6 +31,10 @@ app.use('/api/todos', todoRoutes);
 //   res.status(500).json({ message: "Oops! Something went wrong, this is custom error handling middleware message" });
 // });
 
+
+// Register AFTER all routes
+// app.use(errorLogger);
+
 // Connect to MongoDB using mongoose
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log("✅ MongoDB Connected"))

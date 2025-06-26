@@ -113,11 +113,21 @@ router.get('/search', async (req, res) => {
 // });
 
 
-router.get('/secure-data', logger, (req, res) => {
-  res.send('Only this route logs with logger middleware');
+router.get('/secure-data', logger, (req, res, next) => {
+  try {
+    throw new Error("new Error");
+    res.send('Only this route logs with logger middleware');
+  } catch (error) {
+    next(error); // This sends the error to error-handling middleware
+  }
 });
+
+
+// // ✅ Route-level error handler (only for secure-data errors)
+router.use('/secure-data', errorLogger);
+
+
 // ⏩ Execution Order:
 // /secure-data → logger → route handler
-
 
 module.exports = router;
