@@ -24,8 +24,9 @@ router.get('/google/callback',
       const token = req.user.generateJWT();
       
       // Redirect to frontend with token
-      res.redirect(`${process.env.CLIENT_URL}/auth/success?token=${token}`);
+      res.redirect(`${process.env.CLIENT_URL}auth-success?token=${token}`);
     } catch (error) {
+      console.log(error, "The error"); // Fixed: was 'err' now 'error'
       res.redirect(`${process.env.CLIENT_URL}/auth/error`);
     }
   }
@@ -49,6 +50,7 @@ router.get('/github/callback',
       const token = req.user.generateJWT();
       res.redirect(`${process.env.CLIENT_URL}/auth/success?token=${token}`);
     } catch (error) {
+      console.log(error, "The error"); // Added error logging for consistency
       res.redirect(`${process.env.CLIENT_URL}/auth/error`);
     }
   }

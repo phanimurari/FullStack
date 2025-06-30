@@ -5,8 +5,6 @@ const User = require('../models/User-stateful');
 
 // Google OAuth Strategy
 
-console.log(process.env.GOOGLE_CLIENT_ID, "process.env.GOOGLE_CLIENT_ID")
-
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -81,7 +79,7 @@ passport.use(new GitHubStrategy({
   } catch (error) {
     done(error, null);
   }
-}));
+}));0 
 
 // Serialize user to session
 passport.serializeUser((user, done) => {

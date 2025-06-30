@@ -13,6 +13,7 @@ require('./config/passport-stateless');
 // Import routes
 const authRoutes = require('./routes/auth-stateless');
 const todoRoutes = require('./routes/todos-stateless');
+const authSuccessRoutes = require('./routes/auth-success')
 
 // Import middleware
 const errorLogger = require('./middleware/errorLogger');
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/todos', todoRoutes);
+app.use('/auth-success', authSuccessRoutes); // the new success page route
 
 // Error handling middleware
 app.use(errorLogger);
