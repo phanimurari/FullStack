@@ -1,0 +1,48 @@
+// Running JavaScript in HTML
+// We can run JavaScript in HTML using the HTML script element. It is used to include JavaScript in HTML.
+
+<body>
+  <div id="root"></div>
+  <script type="text/javascript">
+    const rootElement = document.getElementById("root");
+    const element = document.createElement("h1");
+    element.textContent = "Hello World!";
+    element.classList.add("greeting");
+    rootElement.appendChild(element);
+  </script>
+</body>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React CDN Example</title>
+  <!-- Load React and ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    // Create a React element
+    const element = React.createElement('h1', null, 'Hello from React!');
+
+    // Render the element into the DOM
+    ReactDOM.render(element, document.getElementById('root'));
+  </script>
+</body>
+</html>
+
+
+
+// Babel
+
+<script type="text/babel">
+  const elementProps = { className: "greeting", children: "Hello world!" };
+  const element = React.createElement("h1", elementProps);
+  const element = <h1 className="greeting">Hello World</h1>;
+  ReactDOM.render(element, document.getElementById("root"));
+</script>
