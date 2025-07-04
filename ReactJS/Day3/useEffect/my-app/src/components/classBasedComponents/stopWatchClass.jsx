@@ -1,5 +1,121 @@
-// StopwatchClassComponent.js
-import {Component} from 'react';
+import { Component } from 'react';
+
+// class StopwatchClassComponent extends Component {
+//   constructor(props) {
+//     super(props);
+//     console.log('🏗️ CONSTRUCTOR: Component is being created');
+//     console.log('   - Setting initial state');
+//     this.state = {
+//       seconds: 0,
+//       isRunning: false,
+//       intervalId: null
+//     };
+//     console.log('   - Initial state:', this.state);
+//   }
+
+//   componentDidMount() {
+//     console.log('🚀 COMPONENT_DID_MOUNT: Component has been mounted to DOM');
+//     console.log('   - DOM is ready');
+//     console.log('   - You can now start subscriptions or timers if needed');
+//   }
+
+//   componentWillUnmount() {
+//     console.log('💀 COMPONENT_WILL_UNMOUNT: Component is being removed');
+//     console.log('   - Cleaning up interval timer if running');
+//     if (this.state.intervalId) {
+//       clearInterval(this.state.intervalId);
+//       console.log('   - Stopwatch timer cleared');
+//     }
+//   }
+
+//   startStopwatch = () => {
+//     console.log('▶️ Starting stopwatch...');
+//     const intervalId = setInterval(() => {
+//       this.setState(prevState => ({
+//         seconds: prevState.seconds + 1
+//       }));
+//     }, 1000);
+//     this.setState({ isRunning: true, intervalId });
+//   };
+
+//   stopStopwatch = () => {
+//     console.log('⏹️ Stopping stopwatch...');
+//     if (this.state.intervalId) {
+//       clearInterval(this.state.intervalId);
+//     }
+//     this.setState({ isRunning: false, intervalId: null });
+//   };
+
+//   resetStopwatch = () => {
+//     console.log('🔄 Resetting stopwatch...');
+//     if (this.state.intervalId) {
+//       clearInterval(this.state.intervalId);
+//     }
+//     this.setState({ seconds: 0, isRunning: false, intervalId: null });
+//   };
+
+//   render() {
+//     console.log('🎨 RENDER: Component is rendering');
+//     const { seconds, isRunning } = this.state;
+//     const minutes = Math.floor(seconds / 60);
+//     const remainingSeconds = seconds % 60;
+
+//     return (
+//       <div className="p-6 bg-blue-50 rounded-lg border border-blue-200 mb-6">
+//         <h2 className="text-2xl font-bold text-blue-800 mb-4">
+//           Class Component Stopwatch
+//         </h2>
+//         <div className="text-4xl font-mono text-center mb-4 text-blue-600">
+//           {String(minutes).padStart(2, '0')}:
+//           {String(remainingSeconds).padStart(2, '0')}
+//         </div>
+//         <div className="flex gap-2 justify-center">
+//           <button
+//             onClick={this.startStopwatch}
+//             disabled={isRunning}
+//             className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-300"
+//           >
+//             Start
+//           </button>
+//           <button
+//             onClick={this.stopStopwatch}
+//             disabled={!isRunning}
+//             className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 disabled:bg-gray-300"
+//           >
+//             Stop
+//           </button>
+//           <button
+//             onClick={this.resetStopwatch}
+//             className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+//           >
+//             Reset
+//           </button>
+//         </div>
+//         <p className="text-sm text-blue-600 mt-2 text-center">
+//           Check console for lifecycle method logs!
+//         </p>
+
+//         {/* Lifecycle Methods Explanation */}
+//         <div className="mt-4 text-xs text-blue-700 bg-blue-100 p-3 rounded">
+//           <h3 className="font-bold mb-2">Lifecycle Methods Focused:</h3>
+//           <ul className="space-y-1">
+//             <li>1. Constructor → Initialization logic</li>
+//             <li>2. componentDidMount → Runs after the first render</li>
+//             <li>3. componentWillUnmount → Cleanup before removal</li>
+//           </ul>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// export default StopwatchClassComponent;
+
+
+
+
+// // StopwatchClassComponent.js
+// import {Component} from 'react';
 
 class StopwatchClassComponent extends Component {
   constructor(props) {
@@ -66,6 +182,7 @@ class StopwatchClassComponent extends Component {
       console.log('   - Stopwatch timer cleared');
     }
   }
+
 
   startStopwatch = () => {
     console.log('▶️ Starting stopwatch...');

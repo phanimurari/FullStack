@@ -24,6 +24,12 @@ const UseEffectV1Example = () => {
     };
   }); // No dependency array means it runs after every render
 
+
+  const incrementCount  = () => {
+    //any other logic
+    setCount(c => c + 1)
+  }
+
   return (
     <div className="p-6 bg-green-50 rounded-lg border border-green-200 mb-6">
       <h2 className="text-2xl font-bold text-green-800 mb-4">
@@ -36,7 +42,7 @@ const UseEffectV1Example = () => {
             Count: {count}
           </label>
           <button
-            onClick={() => setCount(c => c + 1)}
+            onClick={incrementCount}
             className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
           >
             Increment Count

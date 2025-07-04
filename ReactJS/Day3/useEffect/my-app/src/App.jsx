@@ -7,10 +7,10 @@ import WeatherApp from './components/weather/Weather'
 function App() {
  return <>
 
-   <StopwatchClassComponent/>
+   {/* <StopwatchClassComponent/> */}
    {/* <UseEffectV1Example/> */}
    {/* <UseEffectV2Example/> */}
-   {/* <WeatherApp/> */}
+   <WeatherApp/>
  </>
 
 }
