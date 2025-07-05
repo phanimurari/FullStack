@@ -1,0 +1,45 @@
+/* body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #e0f2f1;
+}
+.app {
+  text-align: center;
+  padding: 20px;
+}
+.form {
+  margin-bottom: 20px;
+}
+input {
+  padding: 8px;
+  width: 200px;
+  margin-right: 8px;
+}
+button {
+  padding: 8px 12px;
+}
+.error {
+  color: red;
+}
+.weather-card {
+  background: white;
+  display: inline-block;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  min-width: 250px;
+}
+.weather-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.weather-main img {
+  width: 80px;
+  height: 80px;
+}
+.weather-main p {
+  margin-left: 8px;
+  text-transform: capitalize;
+  font-size: 1.2em;
+} */
