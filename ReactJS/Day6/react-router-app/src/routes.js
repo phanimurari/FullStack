@@ -20,6 +20,10 @@ const routes = [
     path: 'contact/:id',
     Component: ContactPage,
   },
+  {
+    path: '*', // outside layout
+    Component: NotFound,
+  }
 ];
 
 export default routes;
