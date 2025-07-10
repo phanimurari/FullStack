@@ -183,6 +183,3 @@ This project helps you understand how to:
 * Structure layouts and nested routes cleanly
 * Build fully interactive data-driven pages with minimal `useEffect` or local state
 
----
-
-Let me know if you want this exported as a `README.md` file or want to add GitHub deploy instructions!
