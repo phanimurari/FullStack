@@ -3,6 +3,7 @@ import App from './App';
 import HomePage from './routes/HomePage';
 import AboutPage from './routes/AboutPage';
 import ContactPage from './routes/ContactPage';
+import NotFound from './routes/NotFound';
 
 const routes = [
   {
@@ -11,6 +12,8 @@ const routes = [
     children: [
       { index: true, Component: HomePage },
       { path: 'about', Component: AboutPage },
+      // 👇 Catch-all 404 route (MUST be last among children)
+      { path: '*', Component: NotFound },
     ],
   },
   {
