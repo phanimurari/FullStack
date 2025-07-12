@@ -152,24 +152,6 @@ Returns a response containing details of all recent matches of a team
 
 </details>
 
-<details>
-<summary>Implementation Files</summary>
-<br/>
-
-Use these files to complete the implementation:
-
-- `src/App.js`
-- `src/components/Home/index.js`
-- `src/components/Home/index.css`
-- `src/components/TeamCard/index.js`
-- `src/components/TeamCard/index.css`
-- `src/components/TeamMatches/index.js`
-- `src/components/TeamMatches/index.css`
-- `src/components/LatestMatch/index.js`
-- `src/components/LatestMatch/index.css`
-- `src/components/MatchCard/index.js`
-- `src/components/MatchCard/index.css`
-</details>
 
 ### Quick Tips
 
