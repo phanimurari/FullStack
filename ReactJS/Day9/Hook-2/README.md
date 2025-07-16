@@ -1,10 +1,9 @@
 1. Recap 
     a. Understanding of useRef hook
-2. use Hook Scenarios
+2. use API Scenarios
     1) Understanding Suspense API
     2) Understanding Error Boundary in Functional Components
 3. React 19 - Actions
-4. React 19 - Directives
 5. Traditional React Form
     a. Optimized React Form with React 19 Hooks
     b. Even more optimized React Form - with React Form Hooks Package
@@ -188,3 +187,165 @@ function App() {
 > 🔥 `use(fetchUser())` suspends rendering until the user is fetched. `<Suspense>` handles the fallback gracefully.
 
 ---
+
+
+React.lazy()?
+React.lazy() is a built-in React API that enables component-level code splitting via lazy loading.
+It lets you load components only when they're needed, rather than including them in the initial JavaScript bundle.
+
+✍️ 2. Syntax
+
+```jsx
+const LazyComponent = React.lazy(() => import('./YourComponent'));
+```
+
+This returns a React component that you can use like any other component, but it will not be loaded until it's rendered for the first time.
+
+----
+
+
+```jsx
+// Form submission in React 18
+console.info('React 18 form');
+
+const [name, setName] = useState('');
+const [isPending, setIsPending] = useState(false);
+
+const handleChange = (event) => {
+  setName(event.target.value);
+};
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  setIsPending(true);
+  setTimeout(() => {
+    // call API
+    setIsPending(false);
+  }, 500);
+};
+
+return (
+  <form>
+    <input type="text" name="name" onChange={handleChange} />
+    {isPending ? <p>Loading...</p> : <p>Hello in React 18, {name}</p>}
+    <button onClick={handleSubmit} disabled={isPending}>
+      Update
+    </button>
+  </form>
+);
+```
+
+#### What Are React Actions?
+
+With React 19, handling forms becomes easier with Actions, inspired by frameworks such as Remix
+
+In React 19, startTransition can now handle async functions, making it even more powerful for managing asynchronous tasks and improving the user experience during form submissions.
+
+```jsx
+const [isPending, startTransition] = useTransition();
+
+const handleSubmit = () => {
+  startTransition(async () => {
+    const error = await updateName(name);
+    if (error) {
+      setError(error);
+      return;
+    }
+    redirect('/path');
+  });
+};
+```
+
+This async function inside startTransition is called an Action.
+
+
+```jsx
+<form action="{actionFn}">...</form>
+```
+
+### How to Create a React Action?
+
+To create an async function, we can use a new hook introduced in React 19 called useActionState. We call this hook and pass in an action function and an initial state. This hook returns the updated state and a form action actionFn, which can be used to wire up a form.
+
+```jsx
+const [state, actionFn] = useActionState(submitAction, { name: '' });
+```
+
+To add a loading state, we can use a new hook introduced in React 19 called useFormStatus.
+
+
+```jsx
+const { pending, data, method, action } = useFormStatus();
+```
+
+This hook provides information on the status of the form. The pending state indicates whether the form is being submitted, and data is a FormData object containing the submitted data. We use this pending state to show a loader.
+
+```jsx
+
+function Loader() {
+  const { pending } = useFormStatus();
+  return <div>{pending && "Loading..."}</div>;
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      Update
+    </button>
+  );
+}
+
+....
+
+return(
+<form action={formAction}>
+      <input type="text" name="name" />
+      <Loader />
+      <SubmitButton />
+    </form>
+)
+```
+
+We can also capture useful information about the data submitted to the form by retrieving it from the state returned from useActionState.
+
+```jsx
+const [state, formAction] = useActionState(submitAction, { name: '' });
+```
+
+```jsx
+function Loader() {
+  const { pending } = useFormStatus();
+  return <div>{pending && 'Loading...'}</div>;
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      Update
+    </button>
+  );
+}
+
+function Name({ name }) {
+  return <p>Hello in 19 {name}</p>;
+}
+
+function App() {
+  console.info('React 19 form');
+
+  const [state, formAction] = useActionState(submitAction, { name: '' });
+
+  return (
+    <form action={formAction}>
+      <input type="text" name="name" />
+      <Loader />
+      <SubmitButton />
+      <Name name={state?.name} />
+    </form>
+  );
+}
+```
+
+https://react-hook-form.com/get-started

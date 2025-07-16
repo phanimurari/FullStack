@@ -73,6 +73,8 @@ export const emojisList = [
   }
 ];
 
+// logic to get the emojisList from API
+
 const App = () => <EmojiGame emojisList={emojisList} />;
 
 export default App;

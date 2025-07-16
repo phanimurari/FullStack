@@ -51,6 +51,7 @@ function EmojiGame({ emojisList }) {
     return [...emojisList].sort(() => Math.random() - 0.5);
   }, [clickedEmojis, emojisList]); // reshuffle on each correct click
 
+
   // ---------------------------
   // 🛠️ Reset Game
   // ---------------------------

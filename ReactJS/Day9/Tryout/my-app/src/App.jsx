@@ -20,9 +20,22 @@
 //   return <h1>{product.title}</h1>;
 // }
 
+// function Loader() {
+//   return <h1>Loading...</h1>
+// }
+
 // function App() {
+
+//   // const [data, setData] = useState([])
+//   // const [isLoading, setisLoading] = useState(false)
+
+//   // // succesLogic
+//   // // setisLoading(false)
+
+//   // return isLoading ? <LoadingView/> : <SuccesView/>
+
 //   return (
-//     <Suspense fallback={<h1>Loading...</h1>}>
+//     <Suspense fallback={<Loader/>}>
 //       <Product />
 //     </Suspense>
 //   );
@@ -37,50 +50,50 @@ import { use, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 // ✅ Memoize the fetch promise globally
-let productPromise;
+// let productPromise;
 
-function fetchProduct() {
-  if (!productPromise) {
-    productPromise = fetch("https://fakestoreapi.com/products/1").then(res => {
-      if (!res.ok) {
-        throw new Error("Failed to fetch product");
-      }
-      return res.json();
-    });
-  }
-  return productPromise;
-}
+// function fetchProduct() {
+//   if (!productPromise) {
+//     productPromise = fetch("https://fakestoreapi.com/prodwerfwfucts/1").then(res => {
+//       if (!res.ok) {
+//         throw new Error("Failed to fetch product");
+//       }
+//       return res.json();
+//     });
+//   }
+//   return productPromise;
+// }
 
-function Product() {
-  const product = use(fetchProduct());
-  return <h1>{product.title}</h1>;
-}
+// function Product() {
+//   const product = use(fetchProduct());
+//   return <h1>{product.title}</h1>;
+// }
 
-// ✅ Fallback component for errors
-function ErrorFallback({ error, resetErrorBoundary }) {
-  return (
-    <div role="alert">
-      <p>❌ Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
-  );
-}
+// // ✅ Fallback component for errors
+// function ErrorFallback({ error, resetErrorBoundary }) {
+//   return (
+//     <div role="alert">
+//       <p>❌ Something went wrong:</p>
+//       <pre>{error.message}</pre>
+//       <button onClick={resetErrorBoundary}>Try again</button>
+//     </div>
+//   );
+// }
 
-function App() {
-  return (
-    <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      onReset={() => {
-        // 🔄 Optional: Reset cached promise if needed
-        productPromise = null;
-      }}
-    >
-      <Suspense fallback={<h1>Loading...</h1>}>
-        <Product />
-      </Suspense>
-    </ErrorBoundary>
-  );
-}
+// function App() {
+//   return (
+//     <ErrorBoundary
+//       FallbackComponent={ErrorFallback}
+//       onReset={() => {
+//         // 🔄 Optional: Reset cached promise if needed
+//         productPromise = null;
+//       }}
+//     >
+//       <Suspense fallback={<h1>Loading...</h1>}>
+//         <Product />
+//       </Suspense>
+//     </ErrorBoundary>
+//   );
+// }
 
-export default App;
+// export default App;
