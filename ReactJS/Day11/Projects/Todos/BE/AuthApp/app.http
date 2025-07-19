@@ -1,0 +1,47 @@
+POST http://localhost:8005/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "johndoe2",
+  "email": "john@example1.com",
+  "password": "password123"
+}
+
+###
+
+POST http://localhost:8005/api/auth/login
+Content-Type: application/json
+
+{
+ "email": "john@example1.com",
+ "password": "password123"
+}
+
+###
+
+GET http://localhost:8005/api/todos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4N2I5ZmUwN2M4NTRiM2Q2ZDc4YzllYiIsImlhdCI6MTc1MjkzMjU0MywiZXhwIjoxNzUzNTM3MzQzfQ.c8lWbHtT4QBD4HmQHQ976aNYoF-yAHXYHBQCdutXs0E
+Content-Type: application/json
+
+{
+  "title": "Complete project",
+  "description": "Finish the todo app with authentication"
+}
+
+###
+
+PUT  http://localhost:8005/api/todos/687ba0ce7c854b3d6d78c9f3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4N2I5ZmUwN2M4NTRiM2Q2ZDc4YzllYiIsImlhdCI6MTc1MjkzMjU0MywiZXhwIjoxNzUzNTM3MzQzfQ.c8lWbHtT4QBD4HmQHQ976aNYoF-yAHXYHBQCdutXs0E
+Content-Type: application/json
+
+{
+  "title": "Updated project",
+  "description": "Finish the todo app with authentication - UPDATED",
+  "completed": true
+}
+
+###
+
+DELETE  http://localhost:8005/api/todos/687ba0ce7c854b3d6d78c9f3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4N2I5ZmUwN2M4NTRiM2Q2ZDc4YzllYiIsImlhdCI6MTc1MjkzMjU0MywiZXhwIjoxNzUzNTM3MzQzfQ.c8lWbHtT4QBD4HmQHQ976aNYoF-yAHXYHBQCdutXs0E
+Content-Type: application/json
