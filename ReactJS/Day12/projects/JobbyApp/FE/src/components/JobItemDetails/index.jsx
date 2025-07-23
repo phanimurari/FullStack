@@ -99,7 +99,7 @@ const JobItemDetails = () => {
       },
       method: 'GET',
     }
-    const apiUrl = `https://apis.ccbp.in/jobs/${id}`
+    const apiUrl = `https://jobbyapp-be.onrender.com/api/jobs/${id}`
     const response = await fetch(apiUrl, options)
     if (response.ok === true) {
       const data = await response.json()

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import {
   FilterSection,
@@ -35,7 +35,7 @@ const ProfileCard = () => {
     }
     
     try {
-      const response = await fetch('https://apis.ccbp.in/profile', options)
+      const response = await fetch('https://jobbyapp-be.onrender.com/api/auth/profile', options)
       if (response.ok === true) {
         const data = await response.json()
         const updateData = {

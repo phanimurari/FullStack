@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import Cookies from 'js-cookie'
-import FilterGroup from '../FilterGroup'
+import FilterGroup from '../common/FilterGroup'
 import ProfileCard from '../ProfileCard'
 import JobItemCards from '../JobItemCards'
 import {
@@ -47,7 +47,7 @@ const JobItemDetailsCards = (props) => {
   const formattedData = (e) => ({
     companyLogoUrl: e.company_logo_url,
     employment: e.employment_type,
-    id: e.id,
+    id: e._id,
     jobDescription: e.job_description,
     packagePerAnnum: e.package_per_annum,
     rating: e.rating,
@@ -65,12 +65,12 @@ const JobItemDetailsCards = (props) => {
       },
       method: 'GET',
     }
-    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${text}&minimum_package=${salaryFilter}&search=${searchInput}`
+    const apiUrl = `https://jobbyapp-be.onrender.com/api/jobs?employment_type=${text}&minimum_package=${salaryFilter}&search=${searchInput}`
     console.log(apiUrl)
     const response = await fetch(apiUrl, options)
     if (response.ok === true) {
       const data = await response.json()
-      const updateData = data.jobs.map((e) => formattedData(e))
+      const updateData = data.data.map((e) => formattedData(e))
       setJobsList(updateData)
       setApiStatus(apiStatusConstants.success)
     } else {

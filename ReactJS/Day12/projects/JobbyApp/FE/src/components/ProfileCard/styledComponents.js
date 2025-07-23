@@ -4,8 +4,8 @@ export const FilterSection = styled.div`
   background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
   background-size: cover;
   width: 100%;
-  max-width: 330px;
-  height: 210px;
+  max-width: 300px;
+  height: 200px;
   padding: 40px 20px 20px 20px;
   border-radius: 20px;
   display: flex;

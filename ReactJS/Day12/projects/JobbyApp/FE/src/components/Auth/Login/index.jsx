@@ -40,11 +40,23 @@ const Login = () => {
     }
   }
 
-  const showSuccess = jwtToken => {
-    Cookies.set('jwt_token', jwtToken, {
+  const showSuccess = (token, user) => {
+    // Store JWT token
+    Cookies.set('jwt_token', token, {
       expires: 20,
     })
-    navigate('/', { replace: true })
+    
+    // Store user data
+    Cookies.set('user_data', JSON.stringify(user), {
+      expires: 20,
+    })
+    
+    // Redirect based on role
+    if (user.role === 'admin') {
+      navigate('/admin-dashboard', { replace: true })
+    } else {
+      navigate('/', { replace: true })
+    }
   }
 
   const showFailureText = error => {
@@ -58,9 +70,11 @@ const Login = () => {
     setIsLoading(true)
 
     const loginDetails = {
-      username,
-      password,
+      email: username,
+      password, // encrypted pasword
     }
+
+  
 
     const options = {
       method: 'POST',
@@ -72,14 +86,18 @@ const Login = () => {
 
     const doLogin = async () => {
       try {
-        const response = await fetch('https://apis.ccbp.in/login', options)
+        const response = await fetch('https://jobbyapp-be.onrender.com/api/auth/login', options)
         const data = await response.json()
-        if (response.ok === true) {
-          showSuccess(data.jwt_token)
+        
+        if (response.ok && data.success) {
+          showSuccess(data.token, data.user)
         } else {
-          showFailureText(data.error_msg)
+          // Handle error message from new API structure
+          const errorMessage = data.message || 'Login failed. Please try again.'
+          showFailureText(errorMessage)
         }
       } catch (error) {
+        console.error('Login error:', error)
         showFailureText('Something went wrong. Please try again later.')
       }
     }
@@ -103,7 +121,7 @@ const Login = () => {
         />
         <FormContainer onSubmit={onClickLogin}>
           <InputLabel htmlFor="username">
-            USERNAME
+            Email
           </InputLabel>
           <InputContainer
             id="username"
