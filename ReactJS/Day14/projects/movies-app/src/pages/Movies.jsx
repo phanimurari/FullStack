@@ -1,35 +1,18 @@
-import { useState, useEffect } from "react";
-import { img_300, unavailable, base_url, api_key } from "../config";
+import { useState } from "react";
+import { img_300, unavailable, base_url } from "../config";
 import Pagination from "../Components/Pagination";
 import Genre from "../Components/Genre";
-import useGenre from "../useGenre";
+import useGenre from "../hooks/useGenre";
+import useFetch from "../hooks/useFetch";
 
 const Movies = () => {
-  const [state, setState] = useState([]); //store the fetched data
-  const [page, setPage] = useState(1); //keep a track of the page numbers
-  const [genre, setGenre] = useState([]); //used to store the origional genre values
-  const [value, setValue] = useState([]); //used to store the selected genre values
+  const [page, setPage] = useState(1);
+  const [genre, setGenre] = useState([]);
+  const [value, setValue] = useState([]);
   const genreURL = useGenre(value);
-
-  const fetchTrending = async () => {
-
-    const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMWZmMTE0YjExY2FmMThlZTIxY2NmNTg5MTdmMmJjZCIsIm5iZiI6MTc1MzM2MzM2Mi42Miwic3ViIjoiNjg4MjMzYTIzYzQ4YzRhNWJmNzJkZjgyIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.Ag4iUSdTQnDPE3Lq8GwXQhFs0ermZoqRXUU6aqa8Mkk'
-  }
-};
-
-    const data = await fetch(`
-    ${base_url}3/discover/movie?language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreURL}`, options);
-     const dataJ = await data.json();
-    setState(dataJ.results);
-  };
-
-  useEffect(() => {
-    fetchTrending();
-  }, [page, genreURL]);
+  const { data: state } = useFetch(
+    `${base_url}3/discover/movie?language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreURL}`
+  );
 
   return (
     <>
@@ -46,10 +29,11 @@ const Movies = () => {
             value={value}
             setValue={setValue}
           />
-          {state.map((Val) => {
-            const {
-              name,
-              title,
+          {state &&
+            state.map((Val) => {
+              const {
+                name,
+                title,
               poster_path,
               first_air_date,
               release_date,

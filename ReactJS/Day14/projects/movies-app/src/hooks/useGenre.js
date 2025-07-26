@@ -3,6 +3,6 @@ const useGenre = (value) => {
   
     const GenreIds = value.map((g) => g.id);
     return GenreIds.reduce((acc, curr) => acc + "," + curr);
-  };
-  
-  export default useGenre;
+};
+
+export default useGenre;

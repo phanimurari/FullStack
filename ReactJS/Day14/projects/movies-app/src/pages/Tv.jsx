@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { api_key, img_300, unavailable } from "../config";
 import Pagination from "../Components/Pagination";
 import Genre from "../Components/Genre";
-import useGenre from "../useGenre";
+import useGenre from "../hooks/useGenre"
+
 const TV = () => {
   const [state, setState] = useState([]);
   const [page, setPage] = useState(1);

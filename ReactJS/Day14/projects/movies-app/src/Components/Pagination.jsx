@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useRef, useCallback } from "react";
 
-const Pagination = ({page, setPage}) => {
+const Pagination = ({ page, setPage }) => {
+  
+  const throttle = (func, delay) => {
+    let timeoutId = null;
+    return (...args) => {
+      if (!timeoutId) {
+        timeoutId = setTimeout(() => {
+          func(...args);
+          timeoutId = null;
+        }, delay);
+      }
+    };
+  };
+
+  const throttledSetPage = useCallback(throttle(setPage, 500), [setPage]);
 
   const Previous = () => {
-    if (page !== 1) {
-      setPage(page - 1);
-    } else {
-      setPage(page);
+    if (page > 1) {
+      throttledSetPage(page - 1);
     }
   };
 
   const Next = () => {
     if (page < 10) {
-      setPage(page + 1);
+      throttledSetPage(page + 1);
     }
   };
 

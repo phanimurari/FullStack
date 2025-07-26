@@ -1,36 +1,13 @@
-import React, { useState, useEffect } from "react";
-// import { NavLink } from "react-router-dom";
-import { api_key, base_url, img_300, unavailable } from "../config";
-// import { AppProvider } from "../Components/context";
+import React, { useState } from "react";
+import { base_url, img_300, unavailable } from "../config";
 import Pagination from "../Components/Pagination";
+import useFetch from "../hooks/useFetch";
 
 const Trending = () => {
-  const [state, setState] = useState([]);
-  const [page, setPage] = useState(1); 
-
-  const fetchTrending = async () => {
-
-    const options = {
-       method: 'GET',
-       headers: {
-       accept: 'application/json',
-       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMWZmMTE0YjExY2FmMThlZTIxY2NmNTg5MTdmMmJjZCIsIm5iZiI6MTc1MzM2MzM2Mi42Miwic3ViIjoiNjg4MjMzYTIzYzQ4YzRhNWJmNzJkZjgyIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.Ag4iUSdTQnDPE3Lq8GwXQhFs0ermZoqRXUU6aqa8Mkk'
-      }
-    };
-
-
-    const data = await fetch(`
-    ${base_url}3/trending/all/day?page=${page}`, options);
-    const dataJ = await data.json();
-    // console.log(dataJ.results);
-    setState(dataJ.results);
-  };
-
-  useEffect(() => {
-    fetchTrending();
-  }, [page]);
-
-  console.log(state);
+  const [page, setPage] = useState(1);
+  const { data: state } = useFetch(
+    `${base_url}3/trending/all/day?page=${page}`
+  );
   
   return (
     <>
@@ -41,10 +18,11 @@ const Trending = () => {
             <h4 className="fs-2">Trending Today</h4>
             <i className="fas fa-fire mx-4 text-danger"></i>
           </div>
-          {state.map((Val) => {
-            const {
-              name,
-              title,
+          {state &&
+            state.map((Val) => {
+              const {
+                name,
+                title,
               poster_path,
               first_air_date,
               release_date,
@@ -82,7 +60,6 @@ const Trending = () => {
                   </div>
                   {/* </NavLink> */}
                 </div>
-                {/* <AppProvider media_type={media_type} id={id} /> */}
               </>
             );
           })}
