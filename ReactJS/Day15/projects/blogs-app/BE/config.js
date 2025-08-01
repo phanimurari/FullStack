@@ -1,3 +1,3 @@
 const ADMIN_ROLE=["admin"]
 
-export default ADMIN_ROLE
+module.exports = ADMIN_ROLE;

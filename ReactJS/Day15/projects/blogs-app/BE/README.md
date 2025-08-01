@@ -93,6 +93,27 @@ Retrieves the profile details of the authenticated user.
 
 ---
 
+### Google Authentication
+
+Google authentication uses an OAuth 2.0 flow that requires a browser. You cannot test it directly with a cURL command.
+
+1.  **Initiate Authentication:**
+    Open the following URL in your browser to start the Google login process:
+
+    ```
+    http://localhost:8005/api/auth/google
+    ```
+
+2.  **Callback:**
+    After successful authentication, Google will redirect you to the callback URL specified in your Google Developer Console. The server will handle the callback, create a user if one does not exist, and then redirect to the client URL with the JWT token and refresh token in the query parameters.
+
+    Example redirect URL:
+    ```
+    http://localhost:8005/?token=<YOUR_JWT_TOKEN>&refreshToken=<YOUR_REFRESH_TOKEN>
+    ```
+
+---
+
 ## Blog Routes
 
 ### Get All Blogs
@@ -200,3 +221,7 @@ Creates a new blog post. Requires authentication.
       "category": "Technology",
       "slug": "my-first-blog-post"
     }' http://localhost:8005/api/blogs
+
+
+
+http://localhost:8005/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGI4Mzc0Y2FiNTI0MzQzZDZhMTEzOCIsImlhdCI6MTc1Mzk3MzYyMCwiZXhwIjoxNzUzOTc0NTIwfQ.wJm4G3xJ8w0KTmwVxBo7XM_QV9PBqz4BNdwLnEQvo-w&refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGI4Mzc0Y2FiNTI0MzQzZDZhMTEzOCIsImlhdCI6MTc1Mzk3MzYyMCwiZXhwIjoxNzU0NTc4NDIwfQ.nK-1dOjbF-im5qOJXexZ45uAkV9akx-FVrjXdCvNc_M

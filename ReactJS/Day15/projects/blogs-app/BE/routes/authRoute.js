@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 
@@ -133,6 +134,22 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
+// @route   GET /api/auth/me
+// @desc    Get current user
+// @access  Private
+router.get('/me', auth([]), async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @route   GET /api/auth/profile
 // @desc    Get user profile details
 // @access  Private
@@ -191,5 +208,51 @@ router.post('/refresh-token', async (req, res, next) => {
     next(error);
   }
 });
+
+// @route   GET /api/auth/google
+// @desc    Authenticate with Google
+// @access  Public
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// @route   GET /api/auth/google/callback
+// @desc    Google auth callback
+// @access  Public
+router.get(
+  '/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: `${process.env.CLIENT_URL}/login?error=authentication_failed`,
+    session: false,
+  }),
+  async (req, res) => {
+    try {
+      const token = generateToken(req.user._id);
+      const refreshToken = generateRefreshToken(req.user._id);
+
+      // Save refresh token to user
+      req.user.refreshToken = refreshToken;
+      await req.user.save();
+
+      // Set cookies
+      res.cookie('jwt_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000, // days to ms
+      });
+      res.cookie('refresh_token', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: process.env.JWT_REFRESH_COOKIE_EXPIRE * 24 * 60 * 60 * 1000, // days to ms
+      });
+
+      // Redirect to the frontend
+      res.redirect(process.env.CLIENT_URL || 'http://localhost:3000');
+    } catch (error) {
+      console.error('Google callback error:', error);
+      res.redirect(
+        `${process.env.CLIENT_URL}/login?error=authentication_failed`
+      );
+    }
+  }
+);
 
 module.exports = router;

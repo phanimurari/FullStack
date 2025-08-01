@@ -1,10 +1,7 @@
 import Home from "../Home"
 import Jobs from "../Jobs"
 import NotFound from "../NotFound"
-import JobItemDetails from "../JobItemDetails"
-import Login from "../Auth/Login"
-import Register from "../Auth/Register"
-import Layout from "../Layout"
+
 import RouteWrapper from "./routerWrapper"
 
 const routes = [
