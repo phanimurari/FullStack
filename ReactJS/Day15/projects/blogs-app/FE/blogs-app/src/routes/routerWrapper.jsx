@@ -17,6 +17,15 @@ const RouteWrapper = ({ Component, isProtected, isPublic }) => {
       </PublicRoute>
     );
   }
+
+
+  // if(isPaiduser) {
+  //   return return (
+  //     <PaidUserRoute>
+  //       <Component />
+  //     </PaidUserRoute>
+  //   );
+  // }
   
   return <Component />;
 };

@@ -3,6 +3,9 @@ import Login from '../Auth/Login';
 import Register from '../Auth/Register';
 import Home from '../components/Home';
 import NotFound from '../components/NotFound';
+import PostDetails from '../components/PostDetails';
+import Publish from '../components/Publish';
+import Search from '../components/Search';
 import Layout from '../layouts';
 import RouteWrapper from './routerWrapper';
 
@@ -14,6 +17,18 @@ const routes = [
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: 'post/:slug',
+        Component: PostDetails,
+      },
+      {
+        path: 'search',
+        Component: Search,
+      },
+      {
+        path: 'publish',
+        Component: Publish,
       },
       {
         path: 'not-found',
