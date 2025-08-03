@@ -1,5 +1,5 @@
 const UPLOAD_PRESET = 'ml_default';
-const CLOUD_NAME = 'dmrfhzoju';
+const CLOUD_NAME = 'dmrfhzoju'; // give your 
 const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
 export const uploadImage = async (file) => {

@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const passport = require('passport');
-const cookieParser = require('cookie-parser');
 
 // Load environment variables
 dotenv.config();
@@ -19,14 +18,9 @@ const blogsRoute = require('./routes/blogsRoute');
 const errorLogger = require('./middleware/errorLogger');
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:5173', // The origin of your frontend app
-  credentials: true,
-}));
-
-
+// Middleware
+app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
 app.use(passport.initialize());
 
 // Routes

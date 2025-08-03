@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { HeaderContainer, Title, NavLinks, NavLink, LogoutButton, PublishButton } from './styledComponents';
 
+import { FaWhatsapp } from "react-icons/fa";
+
 const Header = () => {
   const { isAuthenticated, user, logout } = useAuth();
   const location = useLocation();
@@ -60,6 +62,7 @@ const Header = () => {
           </>
         )}
       </NavLinks>
+      <FaWhatsapp size={50} />
     </HeaderContainer>
   );
 };
