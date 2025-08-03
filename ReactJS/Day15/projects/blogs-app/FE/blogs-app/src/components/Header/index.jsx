@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { HeaderContainer, Title, NavLinks, NavLink, LogoutButton } from './styledComponents';
+import { HeaderContainer, Title, NavLinks, NavLink, LogoutButton, PublishButton } from './styledComponents';
 
 const Header = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -9,7 +9,6 @@ const Header = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 
-  console.log(user, "user in header component")
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -46,11 +45,11 @@ const Header = () => {
           <>
             <NavLink>Welcome, {user.username}</NavLink>
             {user.role === 'admin' && (
-              <LogoutButton>
+              <PublishButton>
               <NavLink as={Link} to="/publish">
                 Publish Blog
               </NavLink>
-              </LogoutButton>
+              </PublishButton>
             )}
             <LogoutButton onClick={logout}>Logout</LogoutButton>
           </>

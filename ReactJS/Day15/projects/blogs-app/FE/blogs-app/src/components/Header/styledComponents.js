@@ -24,7 +24,6 @@ export const NavLinks = styled.nav`
 `;
 
 export const NavLink = styled.div`
-  color: #495057;
   text-decoration: none;
   font-size: 1rem;
 
@@ -47,3 +46,23 @@ export const LogoutButton = styled.button`
     background-color: #0056b3;
   }
 `;
+
+
+export const PublishButton = styled.button`
+  background: linear-gradient(to right, #8a2be2, #ff1493);
+  outline: none;
+  border: none;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding-right: 10px;
+  padding-left: 10px;
+  &:hover {
+    opacity: 0.9;
+  }
+`
