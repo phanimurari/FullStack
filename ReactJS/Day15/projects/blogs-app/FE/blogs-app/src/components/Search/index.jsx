@@ -3,6 +3,21 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBlogs } from '../../redux/blogs/blogsActions';
 import PostCard from '../PostCard';
+import {
+  SearchContainer,
+  Sidebar,
+  FilterForm,
+  FilterGroup,
+  Label,
+  Input,
+  Select,
+  MainContent,
+  Header,
+  Title,
+  PostsGrid,
+  StatusMessage,
+  LoadingMessage
+} from './styledComponents.js'
 
 const Search = () => {
   const navigate = useNavigate();
@@ -65,65 +80,66 @@ const Search = () => {
   };
 
   return (
-    <div className='flex flex-col md:flex-row'>
-      <div className='p-7 border-b md:border-r md:min-h-screen border-gray-500'>
-        <form className='flex flex-col gap-8' onSubmit={handleSubmit}>
-          <div className='flex   items-center gap-2'>
-            <label className='whitespace-nowrap font-semibold'>
-              Search Term:
-            </label>
-            <input
+    <SearchContainer>
+      <Sidebar>
+        <FilterForm onSubmit={handleSubmit}>
+          <FilterGroup>
+            <Label>Search Term:</Label>
+            <Input
               type='text'
               id='searchTerm'
-              placeholder='Search...'
-              className='border rounded-lg p-3 w-full'
+              placeholder='Search posts...'
               value={sidebarData.searchTerm}
               onChange={handleChange}
             />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label className='font-semibold'>Sort:</label>
-            <select
+          </FilterGroup>
+          
+          <FilterGroup>
+            <Label>Sort:</Label>
+            <Select
               onChange={handleChange}
               value={sidebarData.sort}
               id='sort'
-              className='border rounded-lg p-3 w-full'
             >
               <option value='latest'>Latest</option>
               <option value='oldest'>Oldest</option>
-            </select>
-          </div>
-          <div className='flex items-center gap-2'>
-            <label className='font-semibold'>Category:</label>
-            <select
+            </Select>
+          </FilterGroup>
+          
+          <FilterGroup>
+            <Label>Category:</Label>
+            <Select
               onChange={handleChange}
               value={sidebarData.category}
               id='category'
-              className='border rounded-lg p-3 w-full'
             >
               <option value='uncategorized'>Uncategorized</option>
               <option value='javascript'>JavaScript</option>
               <option value='reactjs'>React.js</option>
               <option value='nextjs'>Next.js</option>
-            </select>
-          </div>
-        </form>
-      </div>
-      <div className='w-full'>
-        <h1 className='text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5 '>
-          Posts results:
-        </h1>
-        <div className='p-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+            </Select>
+          </FilterGroup>
+        </FilterForm>
+      </Sidebar>
+      
+      <MainContent>
+        <Header>
+          <Title>Posts results:</Title>
+        </Header>
+        
+        <PostsGrid>
           {!loading && blogs.length === 0 && (
-            <p className='text-xl text-gray-500'>No posts found.</p>
+            <StatusMessage>No posts found.</StatusMessage>
           )}
-          {loading && <p className='text-xl text-gray-500'>Loading...</p>}
+          {loading && (
+            <LoadingMessage>Loading</LoadingMessage>
+          )}
           {!loading &&
             blogs &&
             blogs.map((post) => <PostCard key={post._id} post={post} />)}
-        </div>
-      </div>
-    </div>
+        </PostsGrid>
+      </MainContent>
+    </SearchContainer>
   );
 };
 

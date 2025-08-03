@@ -1,20 +1,30 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { uploadImage } from '../../utils/imageUploader';
 import { PublishContainer, PublishTitle, PublishForm, FormLabel, FormInput, FormTextarea, SubmitButton } from './styledComponents';
 
 const Publish = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState('');
+  const [imageFile, setImageFile] = useState(null);
   const [category, setCategory] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const slug = title.toLowerCase().split(' ').join('-');
-    const blogData = { title, content, image, category, slug };
+
+    if (!imageFile) {
+      alert('Please select an image to upload.');
+      return;
+    }
 
     try {
+      const imageUrl = await uploadImage(imageFile);
+      const slug = title.toLowerCase().split(' ').join('-');
+      const blogData = { title, content, image: imageUrl, category, slug };
+
       const response = await fetch('http://localhost:8005/api/blogs', {
         method: 'POST',
         headers: {
@@ -26,10 +36,7 @@ const Publish = () => {
 
       if (response.ok) {
         alert('Blog published successfully!');
-        setTitle('');
-        setContent('');
-        setImage('');
-        setCategory('');
+        navigate('/');
       } else {
         alert('Failed to publish blog.');
       }
@@ -62,12 +69,13 @@ const Publish = () => {
           onChange={(e) => setContent(e.target.value)}
           required
         />
-        <FormLabel htmlFor="image">Image URL</FormLabel>
+        <FormLabel htmlFor="image">Image</FormLabel>
         <FormInput
-          type="text"
+          type="file"
           id="image"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
+          accept="image/png, image/jpeg"
+          onChange={(e) => setImageFile(e.target.files[0])}
+          required
         />
         <FormLabel htmlFor="category">Category</FormLabel>
         <FormInput

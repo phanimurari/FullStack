@@ -10,7 +10,7 @@ import {
 
 const PostCard = ({ post }) => {
   return (
-    <Link to={`/post/${post.slug}`}>
+    <Link to={`/post/${post.slug}`} style={{ textDecoration: 'none' }}>
       <PostCardContainer>
         <PostImage src={post.image} alt={post.title} />
         <PostContent>

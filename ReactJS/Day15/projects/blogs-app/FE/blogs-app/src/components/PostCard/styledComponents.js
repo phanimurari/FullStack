@@ -6,6 +6,15 @@ export const PostCardContainer = styled.div`
   border-radius: 8px;
   overflow: hidden;
   margin: 16px;
+  position: relative;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+
+  &:hover button {
+    transform: translateY(0);
+    opacity: 1;
+  }
 `;
 
 export const PostImage = styled.img`
@@ -16,6 +25,7 @@ export const PostImage = styled.img`
 
 export const PostContent = styled.div`
   padding: 16px;
+  flex-grow: 1;
 `;
 
 export const PostTitle = styled.h3`
@@ -26,22 +36,27 @@ export const PostTitle = styled.h3`
 export const PostCategory = styled.p`
   font-size: 1em;
   color: #555;
-  margin: 0 0 16px;
+  margin: 0;
 `;
 
 export const ReadArticleButton = styled.button`
-  background-color: #007bff;
+  background: linear-gradient(to right, #8a2be2, #ff1493);
   color: white;
   border: none;
   padding: 10px 16px;
   font-size: 1em;
   border-radius: 4px;
   cursor: pointer;
-  display: block;
-  width: calc(100% - 32px);
-  margin: 0 16px 16px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: #0056b3;
+    opacity: 0.9;
   }
 `;
