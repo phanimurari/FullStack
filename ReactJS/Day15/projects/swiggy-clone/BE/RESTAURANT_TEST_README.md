@@ -185,4 +185,23 @@ curl --location 'http://localhost:8005/api/restaurant/<restaurant_id>/food-items
         "rating": 4.7
     }
 ]'
+
+## Get cart items
+
+```bash
+curl --location 'http://localhost:8005/api/restaurant/cart' \
+--header 'Authorization: Bearer <TOKEN>'
 ```
+
+## Place a new order
+
+**Note:** Before placing an order, make sure you have items in your cart. Use the "Add item to cart" endpoint to add items.
+
+```bash
+curl --location --request POST 'http://localhost:8005/api/restaurant/placeorder' \
+--header 'Authorization: Bearer <TOKEN>'
+```
+```
+
+curl -X GET http://localhost:8005/api/restaurant/orders -H "Authorization: Bearer <ADMIN_AUTH_TOKEN>"
+

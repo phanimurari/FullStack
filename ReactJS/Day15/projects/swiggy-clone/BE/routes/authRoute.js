@@ -7,8 +7,8 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 // Generate JWT Token
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+const generateToken = (user) => {
+  return jwt.sign({ id: user._id, avatar: user.avatar }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRE
   });
 };
@@ -50,7 +50,7 @@ router.post('/register', async (req, res, next) => {
     await user.save();
 
     // Generate tokens
-    const token = generateToken(user._id);
+    const token = generateToken(user);
     const refreshToken = generateRefreshToken(user._id);
 
     // Save refresh token to user
@@ -123,7 +123,7 @@ router.post('/login', async (req, res, next) => {
     }
 
     // Generate tokens
-    const token = generateToken(user._id);
+    const token = generateToken(user);
     const refreshToken = generateRefreshToken(user._id);
 
     // Save refresh token to user
@@ -168,7 +168,13 @@ router.get('/me', auth([]), async (req, res) => {
     const user = await User.findById(req.user.id).select('-password');
     res.json({
       success: true,
-      user,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        avatar: user.avatar,
+      },
     });
   } catch (error) {
     console.error(error.message);
@@ -181,10 +187,11 @@ router.get('/me', auth([]), async (req, res) => {
 // @access  Private
 router.get('/profile', auth([]), async (req, res, next) => {
   try {
+    const user = await User.findById(req.user.id).select('-password');
     // Get the authenticated user's information from req.user (set by auth middleware)
     const profile_details = {
-      name: req.user.username, // Use the actual username from JWT token
-      profile_image_url: "https://assets.ccbp.in/frontend/react-js/male-avatar-img.png",
+      name: user.username, // Use the actual username from JWT token
+      profile_image_url: user.avatar || "https://assets.ccbp.in/frontend/react-js/male-avatar-img.png",
       short_bio: "Lead Software Developer and AI-ML expert"
     };
 
@@ -224,7 +231,7 @@ router.post('/refresh-token', async (req, res, next) => {
     }
 
     // Generate and set new access token
-    const token = generateToken(user._id);
+    const token = generateToken(user);
 
     res.cookie('accessToken', token, {
       httpOnly: true,
@@ -258,7 +265,7 @@ router.get(
   }),
   async (req, res) => {
     try {
-      const token = generateToken(req.user._id);
+      const token = generateToken(req.user);
       const refreshToken = generateRefreshToken(req.user._id);
 
       // Save refresh token to user

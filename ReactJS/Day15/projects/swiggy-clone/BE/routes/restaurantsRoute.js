@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const Restaurant = require('../models/Restaurant');
 const Offer = require('../models/Offer');
 const FoodItem = require('../models/FoodItem');
+const Order = require('../models/Order');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
@@ -126,6 +127,43 @@ router.post('/offers/bulk', auth(['admin']), async (req, res, next) => {
   }
 });
 
+// @route   GET /api/restaurant/cart
+// @desc    Get all items in cart
+// @access  Private
+router.get('/cart', auth(), async (req, res, next) => {
+  try {
+      const user = req.user;
+
+    if (!user.cart || user.cart.length === 0) {
+      return res.status(200).json({
+        cart: [],
+        subTotal: 0,
+        deliveryFee: 0,
+        total: 0,
+      });
+    }
+
+    const subTotal = user.cart.reduce((acc, item) => {
+      if (item.foodItem) {
+        return acc + item.foodItem.cost * item.quantity;
+      }
+      return acc;
+    }, 0);
+
+    const deliveryFee = 40;
+    const total = subTotal + deliveryFee;
+
+    res.status(200).json({
+      cart: user.cart,
+      subTotal,
+      deliveryFee,
+      total,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // @route   GET /restaurants/:id
 // @desc    Get a specific restaurant by ID
 // @access  Private
@@ -189,12 +227,12 @@ router.post('/:id/food-items', auth(['admin']), async (req, res, next) => {
 });
 
 // @route   POST /api/restaurant/addtocart
-// @desc    Add item to cart
+// @desc    Add item to cart and delete items from cart
 // @access  Private
 router.post('/addtocart', auth(), async (req, res, next) => {
   try {
     const { restaurantId, foodItemId, quantity } = req.body;
-    const user = await req.user.populate('cart.restaurantId');
+    const user = req.user;
 
     const foodItem = await FoodItem.findOne({ id: foodItemId });
     if (!foodItem) {
@@ -206,13 +244,17 @@ router.post('/addtocart', auth(), async (req, res, next) => {
       return res.status(404).json({ message: 'Restaurant not found' });
     }
 
-    const cartItem = user.cart.find(
+    const cartItemIndex = user.cart.findIndex(
       (item) => item.foodItemId === foodItemId
     );
 
-    if (cartItem) {
-      cartItem.quantity += quantity;
-    } else {
+    if (cartItemIndex > -1) {
+      if (quantity === 0) {
+        user.cart.splice(cartItemIndex, 1);
+      } else {
+        user.cart[cartItemIndex].quantity = quantity;
+      }
+    } else if (quantity > 0) {
       user.cart.push({ restaurantId, foodItemId, quantity });
     }
 
@@ -226,5 +268,56 @@ router.post('/addtocart', auth(), async (req, res, next) => {
     next(error);
   }
 });
+
+// @route   POST /api/restaurant/placeorder
+// @desc    Place a new order
+// @access  Private
+router.post('/placeorder', auth(), async (req, res, next) => {
+  try {
+    const user = req.user;
+    if (user.cart.length === 0) {
+      return res.status(400).json({ message: 'Cart is already empty' });
+    }
+
+    await user.populate('cart.foodItem');
+
+    let totalAmount = 0;
+    const orderItems = user.cart.map((cartItem) => {
+      if (!cartItem.foodItem) {
+        throw new Error('Food item not found in cart');
+      }
+      totalAmount += cartItem.foodItem.cost * cartItem.quantity;
+      return {
+        foodItemId: cartItem.foodItemId,
+        name: cartItem.foodItem.name,
+        quantity: cartItem.quantity,
+        price: cartItem.foodItem.cost,
+      };
+    });
+    
+    const restaurantIds = [...new Set(user.cart.map(item => item.restaurantId))];
+
+    const order = new Order({
+      userId: user._id,
+      restaurantId: restaurantIds.join(','), // Join IDs if multiple restaurants
+      items: orderItems,
+      totalAmount,
+    });
+
+    await order.save();
+
+    user.cart = [];
+    await user.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Order placed successfully',
+      data: order,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 module.exports = router;

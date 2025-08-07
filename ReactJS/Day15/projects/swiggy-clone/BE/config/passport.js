@@ -16,8 +16,11 @@ passport.use(new GoogleStrategy({
       } else {
         user = await User.findOne({ email: profile.emails[0].value });
 
+        console.log(profile, "profile")
+
         if (user) {
           user.googleId = profile.id;
+          user.avatar = profile.photos[0].value;
           await user.save();
           return done(null, user);
         } else {
@@ -25,6 +28,7 @@ passport.use(new GoogleStrategy({
             googleId: profile.id,
             username: profile.displayName,
             email: profile.emails[0].value,
+            avatar: profile.photos[0].value,
             // password is not required for oauth users
           });
           await newUser.save();

@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema({
     unique: true,
     sparse: true
   },
+  avatar: {
+    type: String,
+  },
   role: {
     type: String,
     enum: ['admin', 'user'],
@@ -40,11 +43,9 @@ const userSchema = new mongoose.Schema({
     {
       foodItemId: {
         type: String,
-        ref: 'FoodItem',
       },
       restaurantId: {
         type: String,
-        ref: 'Restaurant',
       },
       quantity: {
         type: Number,
@@ -53,7 +54,23 @@ const userSchema = new mongoose.Schema({
     },
   ],
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
+});
+
+userSchema.virtual('cart.foodItem', {
+  ref: 'FoodItem',
+  localField: 'cart.foodItemId',
+  foreignField: 'id',
+  justOne: true,
+});
+
+userSchema.virtual('cart.restaurant', {
+  ref: 'Restaurant',
+  localField: 'cart.restaurantId',
+  foreignField: 'id',
+  justOne: true,
 });
 
 // Hash password before saving

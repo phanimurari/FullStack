@@ -14,6 +14,7 @@ require('./config/passport');
 // Import routes
 const authRoute = require('./routes/authRoute');
 const restaurantsRoute = require('./routes/restaurantsRoute');
+const userRoute = require('./routes/userRoute');
 
 // Import middleware
 const errorLogger = require('./middleware/errorLogger');
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 // Routes
 app.use('/api/auth', authRoute);
 app.use('/api/restaurant', restaurantsRoute);
+app.use('/api/users', userRoute);
 
 // Error handling middleware (should be last)
 app.use(errorLogger);
