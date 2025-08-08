@@ -1,7 +1,7 @@
-import { ProtectedRoute, PublicRoute } from "./routing";
+import { AdminRoute, ProtectedRoute, PublicRoute } from "./routing";
 
 // Route wrapper component
-const RouteWrapper = ({ Component, isProtected, isPublic }) => {
+const RouteWrapper = ({ Component, isProtected, isPublic, isAdmin }) => {
   if (isProtected) {
     return (
       <ProtectedRoute>
@@ -15,6 +15,14 @@ const RouteWrapper = ({ Component, isProtected, isPublic }) => {
       <PublicRoute>
         <Component />
       </PublicRoute>
+    );
+  }
+
+  if (isAdmin) {
+    return (
+      <AdminRoute>
+        <Component />
+      </AdminRoute>
     );
   }
 

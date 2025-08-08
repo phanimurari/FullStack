@@ -7,7 +7,6 @@ export const HomeContainer = styled.div`
   align-items: center;
   padding: 2rem;
   text-align: center;
-  max-width: 800px;
   margin: 0 auto;
 `;
 

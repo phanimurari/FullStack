@@ -2,11 +2,13 @@
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
 import Home from '../components/Home';
+import NoAccess from '../components/NoAccess';
 import NotFound from '../components/NotFound';
-import PostDetails from '../components/PostDetails';
-import Publish from '../components/Publish';
-import Search from '../components/Search';
+import Orders from '../components/Orders';
+import RestaurantDetail from '../components/RestaurantDetail';
+import Cart from '../components/Cart';
 import Layout from '../layouts';
+import { AdminRoute } from './routing';
 import RouteWrapper from './routerWrapper';
 
 const routes = [
@@ -19,18 +21,6 @@ const routes = [
         Component: Home,
       },
       {
-        path: 'post/:slug',
-        Component: PostDetails,
-      },
-      {
-        path: 'search',
-        Component: Search,
-      },
-      {
-        path: 'publish',
-        Component: Publish,
-      },
-      {
         path: 'not-found',
         Component: NotFound,
       },
@@ -39,6 +29,22 @@ const routes = [
         path: '*', 
         Component: NotFound 
       },
+      {
+        path: 'orders',
+        Component: () => <RouteWrapper Component={Orders} isAdmin={true} />,
+      },
+      {
+        path: 'no-access',
+        Component: NoAccess,
+      },
+      {
+        path: 'restaurant/:id',
+        Component: RestaurantDetail,
+      },
+      {
+        path: 'cart',
+        Component: () => <RouteWrapper Component={Cart} isProtected={true} />,
+      }
     ],
   },
   {

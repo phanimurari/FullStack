@@ -56,4 +56,18 @@ const PaidUserRoute = ({childer}) => {
 
 }
 
-export {ProtectedRoute, PublicRoute}
+const AdminRoute = ({ children }) => {
+  const { user, isLoading, isAuthenticated } = useAuth();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated || user?.role !== 'admin') {
+    return <Navigate to="/no-access" replace />;
+  }
+
+  return children;
+};
+
+export {ProtectedRoute, PublicRoute, AdminRoute}

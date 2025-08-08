@@ -132,7 +132,7 @@ router.post('/offers/bulk', auth(['admin']), async (req, res, next) => {
 // @access  Private
 router.get('/cart', auth(), async (req, res, next) => {
   try {
-      const user = req.user;
+    const user = req.user;
 
     if (!user.cart || user.cart.length === 0) {
       return res.status(200).json({
@@ -143,18 +143,37 @@ router.get('/cart', auth(), async (req, res, next) => {
       });
     }
 
-    const subTotal = user.cart.reduce((acc, item) => {
-      if (item.foodItem) {
-        return acc + item.foodItem.cost * item.quantity;
-      }
-      return acc;
+    const populatedCart = await Promise.all(
+      user.cart.map(async (item) => {
+        const foodItem = await FoodItem.findOne({ id: item.foodItemId });
+        const restaurant = await Restaurant.findOne({ id: item.restaurantId });
+        return {
+          ...item.toObject(),
+          price: foodItem ? foodItem.cost : 0,
+          image_url: foodItem ? foodItem.image_url : '',
+          restaurant_name: restaurant ? restaurant.name : '',
+        };
+      })
+    );
+
+    const subTotal = populatedCart.reduce((acc, item) => {
+      return acc + item.price * item.quantity;
     }, 0);
 
     const deliveryFee = 40;
     const total = subTotal + deliveryFee;
 
     res.status(200).json({
-      cart: user.cart,
+      cart: populatedCart.map(item => ({
+        foodItemId: item.foodItemId,
+        restaurantId: item.restaurantId,
+        quantity: item.quantity,
+        price: item.price,
+        _id: item._id,
+        id: item._id,
+        image_url: item.image_url,
+        restaurant_name: item.restaurant_name,
+      })),
       subTotal,
       deliveryFee,
       total,
@@ -262,7 +281,16 @@ router.post('/addtocart', auth(), async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: 'Item added to cart successfully',
-      data: user.cart,
+      data: [
+        {
+          name: foodItem.name,
+          cost: foodItem.cost,
+          food_type: foodItem.food_type,
+          image_url: foodItem.image_url,
+          id: foodItem.id,
+          rating: foodItem.rating,
+        },
+      ],
     });
   } catch (error) {
     next(error);
@@ -279,13 +307,21 @@ router.post('/placeorder', auth(), async (req, res, next) => {
       return res.status(400).json({ message: 'Cart is already empty' });
     }
 
-    await user.populate('cart.foodItem');
+    const populatedCart = await Promise.all(
+      user.cart.map(async (item) => {
+        const foodItem = await FoodItem.findOne({ id: item.foodItemId });
+        if (!foodItem) {
+          throw new Error('Food item not found in cart');
+        }
+        return {
+          ...item.toObject(),
+          foodItem,
+        };
+      })
+    );
 
     let totalAmount = 0;
-    const orderItems = user.cart.map((cartItem) => {
-      if (!cartItem.foodItem) {
-        throw new Error('Food item not found in cart');
-      }
+    const orderItems = populatedCart.map((cartItem) => {
       totalAmount += cartItem.foodItem.cost * cartItem.quantity;
       return {
         foodItemId: cartItem.foodItemId,

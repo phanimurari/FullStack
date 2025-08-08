@@ -1,10 +1,23 @@
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { useAuth } from '../../context/AuthContext';
 import { HeaderContainer, Title, NavLinks, NavLink, LogoutButton, AvatarContainer, AvatarImage, AvatarInitials } from './styledComponents';
 import { LuChefHat } from "react-icons/lu";
+import { useEffect } from 'react';
+import { fetchCart } from '../../redux/cart/cartActions';
 
 const Header = () => {
   const { isAuthenticated, user, logout } = useAuth();
+  const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.cart);
+  const cartItemsCount = cart?.cart?.length || 0;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(fetchCart());
+    }
+  }, [dispatch, isAuthenticated]);
+
 
   const getInitials = (name) => {
     if (!name) return '';
@@ -29,7 +42,12 @@ const Header = () => {
         {isAuthenticated ? (
           <>
             <NavLink as={Link} to="/">Home</NavLink>
-            <NavLink as={Link} to="/cart">Cart</NavLink>
+            <NavLink as={Link} to="/cart">Cart ({cartItemsCount})</NavLink>
+            {user?.role === 'admin' && (
+              <NavLink as={Link} to="/orders">
+                Check Orders
+              </NavLink>
+            )}
             <AvatarContainer>
               {user.avatar ? (
                 <AvatarImage src={user.avatar} alt={user.username} />

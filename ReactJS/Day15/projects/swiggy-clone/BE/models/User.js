@@ -59,19 +59,6 @@ const userSchema = new mongoose.Schema({
   toObject: { virtuals: true },
 });
 
-userSchema.virtual('cart.foodItem', {
-  ref: 'FoodItem',
-  localField: 'cart.foodItemId',
-  foreignField: 'id',
-  justOne: true,
-});
-
-userSchema.virtual('cart.restaurant', {
-  ref: 'Restaurant',
-  localField: 'cart.restaurantId',
-  foreignField: 'id',
-  justOne: true,
-});
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {
